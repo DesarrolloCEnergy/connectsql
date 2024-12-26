@@ -30,7 +30,11 @@ class Connecc
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare('SELECT * FROM tbg.ta_1_user');
+				$stm = $this->pdo->prepare('SELECT * FROM tbg.ta_1_user as tu
+				INNER JOIN tbg.ca_1_company as tc
+				on tu.companyUser=tc.idCompany
+				INNER JOIN tbg.ca_1_profile as tp
+				on tu.profileUser=tp.idProfile');
 						
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
