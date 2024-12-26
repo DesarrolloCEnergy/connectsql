@@ -5,7 +5,7 @@ class Connecc
     private $pdo;
         public function __construct(){
             try{
-                $hostname = 'transbus-server.database.windows.net';
+                $hostname = 'tcp:transbus-server.database.windows.net,1433';
                 $dbname = 'tbg';
                 $username = 'transbus-server-admin';
                 $password = 'Tr4nsb4s!!.';
@@ -16,7 +16,8 @@ class Connecc
                 ////$this->pdo = new PDO("sqlsrv:server = tcp:".$hosport.";Database=".$dbname.",". $username.",".$password);
                 // $this->pdo = new PDO("sqlsrv:server = tcp:transbus-server.database.windows.net; Database = dbtg", "admindbce", "C4n3l0BD!!.");
                 ////$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				$this->pdo = new PDO("sqlsrv:server = tcp:transbus-server.database.windows.net,1433; Database = tbg", "transbus-server-admin", "Tr4nsb4s!!.");
+				$this->pdo = new PDO("sqlsrv:server = ".$hostname.";Database=".$dbname.",". $username.",".$password);
+				//$this->pdo = new PDO("sqlsrv:server = tcp:transbus-server.database.windows.net,1433; Database = tbg", "transbus-server-admin", "Tr4nsb4s!!.");
     			$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             }
             catch(PDOException $e)
