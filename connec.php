@@ -48,7 +48,9 @@ class Connecc
 					$entt->__SET('phoneUser', $r->phoneUser);
 					$entt->__SET('emailUser', $r->emailUser);
 					$entt->__SET('companyUser', $r->companyUser);
+					$entt->__SET('nameCompany', $r->nameCompany);
 					$entt->__SET('profileUser', $r->profileUser);
+					$entt->__SET('nameProfile', $r->nameProfile);
 					$entt->__SET('positionUser', $r->positionUser);
 					$entt->__SET('baseUser', $r->baseUser);
 					$entt->__SET('statusUser', $r->statusUser);

@@ -8,6 +8,7 @@
 		public $emailUser;
 		public $phoneUser;
 		public $companyUser;
+		public $nameCompany;
 		public $profileUser;
 		public $statusUser;
 		public $dateUser;
