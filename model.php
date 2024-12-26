@@ -6,16 +6,16 @@ class Model
 		private $stm;
         public function __construct(){
 			try{
-                $hostname = 'srv-dbtransbus.database.windows.net';
+                $hostname = 'transbus-server.database.windows.net';
                 $dbname = 'tbg';
-                $username = 'Desarrollo';
-                $password = 'D3s4rr0ll0!!';
+                $username = 'transbus-server-admin';
+                $password = 'Tr4nsb4s!!.';
                 $port = 1433;
                 $hosport = $hostname.",".$port;
                 //require("var.php");
                 // $this->pdo = new PDO("sqlsrv:server=".$hosport.";Database=".$dbname.";Uid=". $username.";Pwd=".$password.";");
-                $this->pdo = new PDO("sqlsrv:server = tcp:srv-dbtransbus.database.windows.net; Database = tbg", "Desarrollo", "D3s4rr0ll0!!");
-                // $this->pdo = new PDO("sqlsrv:server = tcp:srv-dbtransbus.database.windows.net,1433; Database = tbg", "sa", "C4n3l0BD!!");
+                $this->pdo = new PDO("sqlsrv:server = tcp:transbus-server.database.windows.net; Database = tbg", "transbus-server-admin", "Tr4nsb4s!!.");
+                // $this->pdo = new PDO("sqlsrv:server = tcp:transbus-server.database.windows.net,1433; Database = tbg", "sa", "C4n3l0BD!!");
                 $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             }
             catch(Exception $e)

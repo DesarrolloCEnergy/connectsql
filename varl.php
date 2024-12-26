@@ -1,8 +1,8 @@
 <?php
-    $hostname = 'srv-dbtransbus.database.windows.net';
+    $hostname = 'transbus-server.database.windows.net';
     $dbname = 'tbg';
-    $username = 'Desarrollo';
-    $password = 'D3s4rr0ll0!!';
+    $username = 'transbus-server-admin';
+    $password = 'Tr4nsb4s!!.';
     $port = 1433;
     $hosport = $hostname.",".$port;
 

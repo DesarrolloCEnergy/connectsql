@@ -5,16 +5,16 @@ class Connecc
     private $pdo;
         public function __construct(){
             try{
-                $hostname = 'srv-dbtransbus.database.windows.net';
+                $hostname = 'transbus-server.database.windows.net';
                 $dbname = 'tbg';
-                $username = 'Desarrollo';
-                $password = 'D3s4rr0ll0!!';
+                $username = 'transbus-server-admin';
+                $password = 'Tr4nsb4s!!.';
                 $port = 1433;
 				$driver = '{ODBC Driver 17 for SQL Server}';
                 $hosport = $hostname.":".$port;
                 //require("varl.php");
                 $this->pdo = new PDO("sqlsrv:server=".$hostname.";Database=".$dbname.",". $username.",".$password);
-                // $this->pdo = new PDO("sqlsrv:server = tcp:srv-dbtransbus.database.windows.net; Database = dbtg", "admindbce", "C4n3l0BD!!.");
+                // $this->pdo = new PDO("sqlsrv:server = tcp:transbus-server.database.windows.net; Database = dbtg", "admindbce", "C4n3l0BD!!.");
                 $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             }
             catch(Exception $e)
