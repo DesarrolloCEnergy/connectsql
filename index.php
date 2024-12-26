@@ -16,10 +16,10 @@ foreach ((array)$connecc->ConSe() as $r) :
     echo $r->__GET('nameProfile');
 endforeach;
 
-if($result = $connecc->ConSe() != null){
-        echo "te conectaste";
-    }else{
-        echo "no se pudo";
-    }
+// if($result = $connecc->ConSe() != null){
+//         echo "te conectaste";
+//     }else{
+//         echo "no se pudo";
+//     }
 
 ?>
