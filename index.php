@@ -21,7 +21,7 @@ $model = new Model();
 
         </tr>
     </thead>
-        <?php foreach ((array)$model->UserList() as $r) : ?>
+        <?php foreach ((array)$Connecc->ConSe() as $r) : ?>
     <tr>
         <td><?php echo $r->__GET('nameUser'); ?></td>
         <td><?php echo $r->__GET('emailUser'); ?></td>
