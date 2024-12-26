@@ -10,7 +10,7 @@ $model = new Model();
 
 ?>
 
-<table class="table table-hover table-md">
+<!-- <table class="table table-hover table-md">
     <thead>
         <tr>
             <th scope="col">Nombre</th>
@@ -31,14 +31,14 @@ $model = new Model();
 
     </tr>
     <?php endforeach; ?>
-</table>
+</table> -->
 
 <?php
 
-// if($result = $connecc->ConSe() != null){
-//         echo "te conectaste";
-//     }else{
-//         echo "no se pudo";
-//     }
+if($result = $connecc->ConSe() != null){
+        echo "te conectaste";
+    }else{
+        echo "no se pudo";
+    }
 
 ?>
