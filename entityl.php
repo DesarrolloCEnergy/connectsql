@@ -22,6 +22,7 @@
 		public $session;
 		public $typeGet;
 		public $idUSer;
+		public $idProfile;
 		public $nameProfile;
 		public $credentialProfile;
 		public $wUser;
