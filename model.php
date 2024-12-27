@@ -904,7 +904,7 @@ class Model
 		
 		public function ProfileAdd(Enti $data){
 			try {
-				$sql = "INSERT INTO ca_1_profile (nameProfile) 
+				$sql = "INSERT INTO tbg.ca_1_profile (nameProfile) 
 		        	VALUES (?)";
 				$res=$this->pdo->prepare($sql)->execute(array(
 					$data->__GET('nameProfile')
@@ -920,7 +920,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ca_1_profile");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_1_profile");	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
