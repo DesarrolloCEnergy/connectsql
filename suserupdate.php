@@ -50,7 +50,7 @@
                     icon: 'success',
                     timer: 1000,
                     willClose: () => {
-                        window.location.href = '../sheets/vuserlist.php';
+                        window.location.href = 'index.php';
                     }
                 });
                 });

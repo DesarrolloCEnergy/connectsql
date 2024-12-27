@@ -13,7 +13,7 @@
                                         <div class="col-sm-12 col-md-10 col-lg-9 col-xl-8">
                                             <div class="card-body">
                                                 <form  method="post" accept-charset="utf-8" action="suserupdate.php" onsubmit="sendFormLoading(event);">
-                                                    <?php $euid=$_GET["id"]; ?>
+                                                    <?php $euid=$_GET["id"]; echo $euid; ?>
                                                     <?php foreach ((array)$model->UserListU($euid) as $r) : ?>
                                                     <?php $aBaseUser = json_decode($r->__GET('baseUser')); ?>
                                                     <input class="form-control" id="idUser" name="idUser" type="text"  value="<?php echo $r->__GET('idUser'); ?>" hidden />
