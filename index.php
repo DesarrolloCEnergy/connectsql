@@ -10,14 +10,10 @@ $model = new Model();
 
 ?>
 
-<!-- <?php include '../includes/import.php'; ?> -->
 <!DOCTYPE html>
 <html lang="es">
-    <?php include '../includes/zh.php'; ?>
-        <?php include '../includes/zt.php'; ?>
             <body class="sb-nav-fixed">
                 <div id="layoutSidenav">
-                    <?php include '../includes/nleft.php'; ?>
                     <div id="layoutSidenav_content">
                         <main>
                             <div class="container-fluid px-4">
@@ -28,7 +24,7 @@ $model = new Model();
                                     <div class="row justify-content-center">
                                         <div class="col-sm-12 col-md-10 col-lg-9 col-xl-8">
                                             <div class="card-body">
-                                                <form  method="post" accept-charset="utf-8" enctype="multipart/form-data" action="../php/suseradd.php" onsubmit="sendFormLoading(event);">
+                                                <form  method="post" accept-charset="utf-8" enctype="multipart/form-data" action="suseradd.php" onsubmit="sendFormLoading(event);">
                                                     <div class="row mb-3">
                                                         <div class="col-md-4">
                                                             <div class="form-floating mb-3 mb-md-0">
@@ -128,8 +124,6 @@ $model = new Model();
                                 </div>
                             </div>
                         </main>
-                        <?php include '../includes/zf.php'; ?>    
-                        <?php include '../includes/zd.html'; ?>
                     </div>
                 </div>
         <script>
