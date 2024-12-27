@@ -205,8 +205,7 @@ class Model
 		public function UserEdit(Enti $data){
 			try 
 			{
-					$sql = "UPDATE ta_1_user SET 
-								passwordUser = ?,
+					$sql = "UPDATE tbg.ta_1_user SET 
 								fullNameUser = ?,
 								emailUser = ?,
 								phoneUser = ?,
@@ -214,7 +213,6 @@ class Model
 							WHERE idUser = ?";
 					$res=$this->pdo->prepare($sql)->execute(
 						array(
-							$data->__GET('passwordUser'),
 							$data->__GET('fullNameUser'),
 							$data->__GET('emailUser'),
 							$data->__GET('phoneUser'),
@@ -232,7 +230,7 @@ class Model
 		public function UserInactive(Enti $data){
 			try 
 			{
-				$sql = "UPDATE ta_1_user SET 
+				$sql = "UPDATE tbg.ta_1_user SET 
 							statusUser = ?
 						WHERE idUser = ?";
 				$res=$this->pdo->prepare($sql)
