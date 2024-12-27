@@ -241,7 +241,7 @@ $model = new Model();
         <td><?php echo $r->__GET('phoneUser'); ?></td>
         <td><?php echo $r->__GET('nameCompany'); ?></td>
         <td><?php echo $r->__GET('nameProfile'); ?></td>
-        <td><a href="suserupdate.php?idi=<?php echo $r->__GET('idUser'); ?>"><i class="fa-regular fa-circle-down fa-lg" style="color: #00c4b3;"></i></a></td>
+        <td><a href="suserupdate.php?idi=<?php echo $r->__GET('idUser'); ?>"><img class="icoo1" width="25px" src="../assets/img/editv.png"/></a></td>
         <td><a href="vuserupdate.php?id=<?php echo $r->__GET('idUser'); ?>"><img class="icoo1" width="25px" src="../assets/img/editv.png"/></a></td>
 
     </tr>
