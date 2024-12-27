@@ -16,11 +16,13 @@
             $nameUser=$_REQUEST['nameUser'];
             $passwordUser=MD5($_REQUEST['passwordUser']);
             $emailUser=$_REQUEST['emailUser'];
+            $fullNameUser=$nameUser."-".$emailUser;
             $phoneUser=$_REQUEST['phoneUser'];
             $companyUser=$_REQUEST['companyUser'];
             $profileUser=$_REQUEST['profileUser'];
 
             $entity->__SET('nameUser', $nameUser);
+            $entity->__SET('fullNameUser', $fullNameUser);
             $entity->__SET('passwordUser', $passwordUser);
             $entity->__SET('emailUser', $emailUser);
             $entity->__SET('phoneUser', $phoneUser);
@@ -32,7 +34,7 @@
             $resultado=array("resultado"=>$res);
         
             echo '<script type="text/javascript">alert("Creado exitosamente");</script>';
-            echo "<script> setTimeout(\"location.href='../sheets/vuserlist.php'\",1000)</script>";
+            echo "<script> setTimeout(\"location.href='index.php'\",1000)</script>";
         }
 
 ?>
