@@ -25,8 +25,8 @@ class Model
 
 		public function UserAdd(Enti $data){
 			try {
-				$sql = "INSERT INTO tbg.ta_1_user (nameUser,fullNameUser,passwordUser,emailUser,phoneUser,companyUser,positionUser,baseUser,dateUser,timeUser) 
-					VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				$sql = "INSERT INTO tbg.ta_1_user (nameUser,fullNameUser,passwordUser,emailUser,phoneUser,companyUser,profileUser, positionUser,baseUser,dateUser,timeUser) 
+					VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 				$res=$this->pdo->prepare($sql)->execute(array(
 					$data->__GET('nameUser'),
 					$data->__GET('fullNameUser'),
@@ -34,6 +34,7 @@ class Model
 					$data->__GET('emailUser'),
 					$data->__GET('phoneUser'),
 					$data->__GET('companyUser'),
+					$data->__GET('profileUser'),
 					$data->__GET('positionUser'),
 					$data->__GET('baseUser'),
 					$data->__GET('dateUser'),

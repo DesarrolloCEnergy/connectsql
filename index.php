@@ -222,28 +222,121 @@ $model = new Model();
 
 
 
-<table class="table table-hover table-md">
-    <thead>
-        <tr>
-            <th scope="col">Nombre</th>
-            <th scope="col">Correo</th>
-            <th scope="col">Telefono</th>
-            <th scope="col">Empresa</th>
-            <th scope="col">Perfil</th>
+<?php include '../includes/import.php'; ?>
+<!DOCTYPE html>
+<html lang="es">
+    <?php include '../includes/zh.php'; ?>
+        <?php include '../includes/zt.php'; ?>
+            <body class="sb-nav-fixed">
+                <div id="layoutSidenav">
+                    <?php include '../includes/nleft.php'; ?>
+                    <div id="layoutSidenav_content">
+                        <main>
+                            <div class="container-fluid px-4">
+                                <div class="card mt-4 mb-4">
+                                    <div class="card-header">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <?php if(validateCredential($_SESSION['SidUser'],'add_user')){ ?>
+                                            <div class="mt-0 mb-0">
+                                                <div class="d-grid"><a href="../sheets/vuseradd.php"><button type="submit" class="btn ColBacVer btn-block">Agregar</button></a></div>
+                                            </div>
+                                        <?php } ?>
+                                        <h3 class="text-center flex-grow-1">Usuarios</h3>
+                                    </div>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                            <div class="card-body table-responsive text-center">
+                                                <table class="table table-hover table-md" id="tbUser">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">Nombre</th>
+                                                            <th scope="col">Nombre completo</th>
+                                                            <th scope="col">Correo</th>
+                                                            <th scope="col">Telefono</th>
+                                                            <th scope="col">Empresa</th>
+                                                            <th scope="col">Puesto</th>
+                                                            <th scope="col">Base</th>
+                                                            <th scope="col">Inactivar</th>
+                                                            <th scope="col">Editar</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </main>
+                        <?php include '../includes/zf.php'; ?>    
+                        <?php include '../includes/zd.html'; ?>
+                    </div>
+                </div>
+                <script>
+                  $(document).ready( function () {
+                    var table = $('#tbUser').DataTable({
+                      "language": {
+                        "lengthMenu": "Registros por página _MENU_ ",
+                        "search": '<span></span> _INPUT_',
+                        "searchPlaceholder": 'Buscar:',
+                        "zeroRecords": "No se encontró información",
+                        "info": "Mostrando página _PAGE_ de _PAGES_",
+                        "infoEmpty": "No hay registros disponibles",
+                        "infoFiltered": "",
+                        "scrollX": true,
+                        "paginate": {
+                          "previous": "Anterior",
+                          "next": "Siguiente",
+                        },
+                        "emptyTable": "No hay datos disponibles en la tabla",
+                        "select": {
+                            "rows": {
+                                "_": "%d filas seleccionadas",
+                                "0": "",
+                                "1": "1 fila seleccionada"
+                            }
+                        }
+                      },
+                      select: true,
+                      "serverSide": true,
+                      "ajax": {
+                        url: "../php/suserlist.php",
+                        type: "POST",
+                        data: {}
+                      },
+                      "aaSorting": [[ 0, "asc" ]],
+                      "columnDefs": [
+                        { searchable: false, targets: [6,7,8] },
+                        { orderable: false, targets: [7,8] },
+                        {
+                          "targets": 7,
+                          "data": null,
+                          render: function (data, type, row) {
+                            var inputTb = "";
+                            if(data[9] == '1'){
+                                inputTb = "<a href='../php/suserupdate.php?idi="+data[7]+"'><i class='fa-regular fa-circle-down fa-lg' style='color: #00c4b3;'></i></a>";
+                            }
+                            return inputTb;
+                          }
+                        },
+                        {
+                          "targets": 8,
+                          "data": null,
+                          render: function (data, type, row) {
+                            var inputTbEdit = "";
+                            if(data[9] == '1'){
+                                inputTbEdit = "<a href='../sheets/vuserupdate.php?id="+data[8]+"'><img class='icoo1' width='25px' src='../assets/img/editv.png'/></a>";
+                            }
+                            return inputTbEdit;
+                          }
+                        }
+                      ]
+                    });
+                  });
+                </script>
+            </body>
+</html>
 
-        </tr>
-    </thead>
-        <?php foreach ((array)$connecc->ConSe() as $r) : ?>
-    <tr>
-        <td><?php echo $r->__GET('nameUser'); ?></td>
-        <td><?php echo $r->__GET('emailUser'); ?></td>
-        <td><?php echo $r->__GET('phoneUser'); ?></td>
-        <td><?php echo $r->__GET('nameCompany'); ?></td>
-        <td><?php echo $r->__GET('nameProfile'); ?></td>
-
-    </tr>
-    <?php endforeach; ?>
-</table>
 
 <?php
 

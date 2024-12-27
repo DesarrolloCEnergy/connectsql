@@ -20,6 +20,7 @@
             $phoneUser=$_REQUEST['phoneUser'];
             $companyUser=$_REQUEST['companyUser'];
             $positionUser=$_REQUEST['positionUser'];
+            $profileUser=$_REQUEST['positionUser'];
             $baseUser = array();
             $eFilterBase = "";
             if(isset($_REQUEST['baseUser']) && is_array($_REQUEST['baseUser'])){
@@ -38,6 +39,7 @@
             $entity->__SET('phoneUser', $phoneUser);
             $entity->__SET('companyUser', $companyUser);
             $entity->__SET('positionUser', $positionUser);
+            $entity->__SET('profileUser', $profileUser);
             $entity->__SET('baseUser', json_encode($baseUser));
             $entity->__SET('dateUser', $dateUser);
             $entity->__SET('timeUser', $timeUser);
@@ -72,7 +74,7 @@
                     allowOutsideClick: false,
                     allowEscapeKey: false,
                     willClose: () => {
-                        window.location.href = '../sheets/vuserlist.php';
+                        window.location.href = 'index.php';
                     }
                 });
                 });
