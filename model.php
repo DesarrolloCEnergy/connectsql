@@ -203,20 +203,8 @@ class Model
 			{die($e->getMessage());}
 		}
 		public function UserEdit(Enti $data){
-			//print_r($data);
 			try 
 			{
-				if(!empty($data->__GET('passwordUser'))){
-					$aNewData = array(
-						'passwordUser' => $data->__GET('passwordUser'),
-						'fullNameUser' => $data->__GET('fullNameUser'),
-						'emailUser' => $data->__GET('emailUser'),
-						'phoneUser' => $data->__GET('phoneUser'),
-						'baseUser' => $data->__GET('baseUser'),
-						'idUser' => $data->__GET('idUser')
-					);
-					$aNewValues = array_values($aNewData);
-					$this->backupUpdate($aNewData,'ta_1_user','idUser = '.$data->__GET('idUser'), 'Usuarios');
 					$sql = "UPDATE ta_1_user SET 
 								passwordUser = ?,
 								fullNameUser = ?,
@@ -224,7 +212,6 @@ class Model
 								phoneUser = ?,
 								baseUser = ?
 							WHERE idUser = ?";
-							/*
 					$res=$this->pdo->prepare($sql)->execute(
 						array(
 							$data->__GET('passwordUser'),
@@ -235,37 +222,7 @@ class Model
 							$data->__GET('idUser')
 						)
 					);
-					*/
-					$res=$this->pdo->prepare($sql)->execute($aNewValues);
-				} else {
-					$aNewData = array(
-						'fullNameUser' => $data->__GET('fullNameUser'),
-						'emailUser' => $data->__GET('emailUser'),
-						'phoneUser' => $data->__GET('phoneUser'),
-						'baseUser' => $data->__GET('baseUser'),
-						'idUser' => $data->__GET('idUser')
-					);
-					$aNewValues = array_values($aNewData);
-					$this->backupUpdate($aNewData,'ta_1_user','idUser = '.$data->__GET('idUser'), 'Usuarios');
-					$sql = "UPDATE ta_1_user SET 
-								emailUser = ?,
-								fullNameUser = ?,
-								phoneUser = ?,
-								baseUser = ?
-							WHERE idUser = ?";
-							/*
-					$res=$this->pdo->prepare($sql)->execute(
-						array(
-							$data->__GET('emailUser'),
-							$data->__GET('fullNameUser'),
-							$data->__GET('phoneUser'),
-							$data->__GET('baseUser'),
-							$data->__GET('idUser')
-						)
-					);
-					*/
-					$res=$this->pdo->prepare($sql)->execute($aNewValues);
-				}
+				
 			} catch (Exception $e) 
 			{
 				die($e->getMessage());
@@ -273,19 +230,11 @@ class Model
 			return $res;
 		}
 		public function UserInactive(Enti $data){
-			//print_r($data);
 			try 
 			{
-				$aNewData = array(
-					'statusUser' => $data->__GET('statusUser'),
-					'idUser' => $data->__GET('idUser')
-				);
-				$aNewValues = array_values($aNewData);
-				$this->backupUpdate($aNewData,'ta_1_user','idUser = '.$data->__GET('idUser'), 'Usuarios');
 				$sql = "UPDATE ta_1_user SET 
 							statusUser = ?
 						WHERE idUser = ?";
-						/*
 				$res=$this->pdo->prepare($sql)
 					->execute(
 					array(
@@ -293,8 +242,6 @@ class Model
 						$data->__GET('idUser')
 						)
 					);
-					*/
-					$res=$this->pdo->prepare($sql)->execute($aNewValues);
 			} catch (Exception $e) 
 			{
 				die($e->getMessage());
@@ -4517,34 +4464,6 @@ class Model
 			} catch (Exception $e) {
 				die($e->getMessage());
 			}
-		}
-		function backupUpdate($aData,$tabla,$where, $mod) {
-			$aNewValues = array_values($aData);
-			$aNewKeys = array_keys($aData);
-			$eColumns = implode(',',$aNewKeys);
-			$eSQLSelect= "SELECT {$eColumns} FROM tbg.{$tabla} WHERE {$where}";
-			$aOldData = (array) $this->currentData($eSQLSelect);
-			$aAuxOldData = array_diff_assoc($aOldData, $aData); // Registros Anteriores
-		    $aAuxNewData = array_diff_assoc($aData, $aOldData); // Registros Nuevos
-			try {
-				$sql = "INSERT INTO tbg.ta_1_backupupdate (tableBackup, modBackup, idRecordBackup, oldRecordsBackup, newRecordsBackup, userBackup, dateTimeBackup) VALUES (?, ?, ?, ?, ?, ?, ?)";
-				$res=$this->pdo->prepare($sql)->execute(array(
-					$tabla,
-					$mod,
-					$where,
-					json_encode($aAuxOldData),
-					json_encode($aAuxNewData),
-					$_SESSION["SidUser"],
-					date('Y-m-d H:i:s')
-					)
-				);
-				$idBackup = $this->pdo->lastInsertId();
-				return $idBackup;
-			} catch (Exception $e) 
-			{
-				die($e->getMessage());
-			}
-			return $res;
 		}
 
 		//////////// *** setttlementWithholdig  *** ////////////////
