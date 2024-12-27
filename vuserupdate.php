@@ -1,3 +1,14 @@
+<?php
+
+require_once 'connec.php';
+require_once 'entityl.php';
+require_once 'model.php';
+require_once 'entity.php';
+$connecc = new Connecc();
+$entity = new Sesion();
+$model = new Model();
+
+?>
 <!DOCTYPE html>
 <html lang="es">
             <body class="sb-nav-fixed">

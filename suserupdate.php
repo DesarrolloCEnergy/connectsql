@@ -1,5 +1,4 @@
 <?php
-    include '../includes/import.php';
     require_once 'entity.php';
     require_once 'model.php';
     
