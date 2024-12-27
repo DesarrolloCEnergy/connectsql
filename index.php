@@ -222,25 +222,19 @@ $model = new Model();
 
 
 
-<?php include '../includes/import.php'; ?>
 <!DOCTYPE html>
 <html lang="es">
-    <?php include '../includes/zh.php'; ?>
-        <?php include '../includes/zt.php'; ?>
             <body class="sb-nav-fixed">
                 <div id="layoutSidenav">
-                    <?php include '../includes/nleft.php'; ?>
                     <div id="layoutSidenav_content">
                         <main>
                             <div class="container-fluid px-4">
                                 <div class="card mt-4 mb-4">
                                     <div class="card-header">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <?php if(validateCredential($_SESSION['SidUser'],'add_user')){ ?>
                                             <div class="mt-0 mb-0">
                                                 <div class="d-grid"><a href="../sheets/vuseradd.php"><button type="submit" class="btn ColBacVer btn-block">Agregar</button></a></div>
                                             </div>
-                                        <?php } ?>
                                         <h3 class="text-center flex-grow-1">Usuarios</h3>
                                     </div>
                                     </div>
@@ -268,8 +262,6 @@ $model = new Model();
                                 </div>
                             </div>
                         </main>
-                        <?php include '../includes/zf.php'; ?>    
-                        <?php include '../includes/zd.html'; ?>
                     </div>
                 </div>
                 <script>
