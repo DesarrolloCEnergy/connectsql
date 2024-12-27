@@ -5,10 +5,6 @@ class Connecc
     private $pdo;
         public function __construct(){
             try{
-                // $hostname = 'tcp:transbus-server.database.windows.net,1433';
-                // $dbname = 'tbg';
-                // $username = 'transbus-server-admin';
-                // $password = "Tr4nsb4s!!.";
                 require("varl.php");
 				//$this->pdo = new PDO("sqlsrv:server = tcp:transbus-server.database.windows.net,1433; Database = tbg", "transbus-server-admin", "Tr4nsb4s!!.");
 				$this->pdo = new PDO("sqlsrv:server = $hostname; Database= $dbname", "$username", "$password");
