@@ -24,7 +24,7 @@ class Model
 
 		public function UserAdd(Enti $data){
 			try {
-				$sql = "INSERT INTO tag.ta_1_user (nameUser,fullNameUser,passwordUser,emailUser,phoneUser,companyUser,positionUser,baseUser,dateUser,timeUser) 
+				$sql = "INSERT INTO tbg.ta_1_user (nameUser,fullNameUser,passwordUser,emailUser,phoneUser,companyUser,positionUser,baseUser,dateUser,timeUser) 
 					VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 				$res=$this->pdo->prepare($sql)->execute(array(
 					$data->__GET('nameUser'),
@@ -49,7 +49,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_1_user INNER JOIN ca_7_position ON ta_1_user.positionUser = ca_7_position.idPosition INNER JOIN ca_1_company ON ta_1_user.companyUser=ca_1_company.idCompany WHERE ta_1_user.statusUser = 1 AND ta_1_user.profileUser != 1 ORDER BY ta_1_user.idUser DESC ");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_1_user INNER JOIN tgb.ca_7_position ON tbg.ta_1_user.positionUser = tgb.ca_7_position.idPosition INNER JOIN tbg.ca_1_company ON tbg.ta_1_user.companyUser=tbg.ca_1_company.idCompany WHERE tbg.ta_1_user.statusUser = 1 AND tbg.ta_1_user.profileUser != 1 ORDER BY tbg.ta_1_user.idUser DESC ");	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -75,8 +75,8 @@ class Model
 			{
 				$e_SQL = "SELECT
 				  COUNT(t1u.idUser) AS userCountPosition
-				FROM ca_7_position AS c7p
-				LEFT JOIN ta_1_user AS t1u ON t1u.positionUser = c7p.idPosition
+				FROM tgb.ca_7_position AS c7p
+				LEFT JOIN tbg.ta_1_user AS t1u ON t1u.positionUser = c7p.idPosition
 				WHERE idPosition = '{$positionUser}'";
 				if($baseUser != ""){
 					$e_SQL .= " AND baseUser LIKE '%\"{$baseUser}\"%'";
@@ -101,7 +101,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_1_user INNER JOIN ca_7_position ON ta_1_user.positionUser = ca_7_position.idPosition INNER JOIN ca_1_company ON ta_1_user.companyUser=ca_1_company.idCompany WHERE ta_1_user.statusUser = 1 AND ta_1_user.idUser = ? ORDER BY ta_1_user.idUser DESC ");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_1_user INNER JOIN tgb.ca_7_position ON tbg.ta_1_user.positionUser = tgb.ca_7_position.idPosition INNER JOIN tbg.ca_1_company ON tbg.ta_1_user.companyUser=tbg.ca_1_company.idCompany WHERE tbg.ta_1_user.statusUser = 1 AND tbg.ta_1_user.idUser = ? ORDER BY tbg.ta_1_user.idUser DESC ");	
 				$stm->execute(array($euid));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -128,7 +128,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_1_user AS t1u 
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_1_user AS t1u 
 				INNER JOIN ta_7_unloading AS t7u ON t1u.idUser=t7u.userUnloading 
 				WHERE t7u.idUnloading = ? ");	
 				$stm->execute(array($id));
@@ -147,7 +147,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_1_user AS t1u 
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_1_user AS t1u 
 				INNER JOIN ta_7_unloading AS t7u ON t1u.idUser=t7u.userUnloadingC 
 				WHERE t7u.idUnloading = ? ");	
 				$stm->execute(array($id));
@@ -166,7 +166,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_1_user AS t1u 
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_1_user AS t1u 
 				INNER JOIN ta_7_unloading AS t7u ON t1u.idUser=t7u.userUnloadingEPS 
 				WHERE t7u.idUnloading = ? ");	
 				$stm->execute(array($id));
@@ -185,7 +185,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_1_user AS t1u 
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_1_user AS t1u 
 				INNER JOIN ta_7_unloading AS t7u ON t1u.idUser=t7u.userUnloadingT 
 				WHERE t7u.idUnloading = ? ");	
 				$stm->execute(array($id));
@@ -214,8 +214,8 @@ class Model
 						'idUser' => $data->__GET('idUser')
 					);
 					$aNewValues = array_values($aNewData);
-					$this->backupUpdate($aNewData,'ta_1_user','idUser = '.$data->__GET('idUser'), 'Usuarios');
-					$sql = "UPDATE ta_1_user SET 
+					$this->backupUpdate($aNewData,'tbg.ta_1_user','idUser = '.$data->__GET('idUser'), 'Usuarios');
+					$sql = "UPDATE tbg.ta_1_user SET 
 								passwordUser = ?,
 								fullNameUser = ?,
 								emailUser = ?,
@@ -244,8 +244,8 @@ class Model
 						'idUser' => $data->__GET('idUser')
 					);
 					$aNewValues = array_values($aNewData);
-					$this->backupUpdate($aNewData,'ta_1_user','idUser = '.$data->__GET('idUser'), 'Usuarios');
-					$sql = "UPDATE ta_1_user SET 
+					$this->backupUpdate($aNewData,'tbg.ta_1_user','idUser = '.$data->__GET('idUser'), 'Usuarios');
+					$sql = "UPDATE tbg.ta_1_user SET 
 								emailUser = ?,
 								fullNameUser = ?,
 								phoneUser = ?,
@@ -279,8 +279,8 @@ class Model
 					'idUser' => $data->__GET('idUser')
 				);
 				$aNewValues = array_values($aNewData);
-				$this->backupUpdate($aNewData,'ta_1_user','idUser = '.$data->__GET('idUser'), 'Usuarios');
-				$sql = "UPDATE ta_1_user SET 
+				$this->backupUpdate($aNewData,'tbg.ta_1_user','idUser = '.$data->__GET('idUser'), 'Usuarios');
+				$sql = "UPDATE tbg.ta_1_user SET 
 							statusUser = ?
 						WHERE idUser = ?";
 						/*
@@ -569,7 +569,7 @@ class Model
 				ON t7e.baseEmployee=c1b.idBase
 				INNER JOIN ca_7_departament AS c7d
 				ON t7e.departamentEmployee=c7d.idDepartament
-				INNER JOIN ca_7_position AS c7p
+				INNER JOIN tgb.ca_7_position AS c7p
 				ON t7e.positionEmployee=c7p.idPosition
 				INNER JOIN ca_7_state AS c7s
 				ON t7e.stateEmployee=c7s.idState
@@ -849,7 +849,7 @@ class Model
 
 		public function CompanyAdd(Enti $data){
 			try {
-				$sql = "INSERT INTO ca_1_company (nameCompany,icoCompany,logoCompany) 
+				$sql = "INSERT INTO tbg.ca_1_company (nameCompany,icoCompany,logoCompany) 
 		        	VALUES (?, ?, ?)";
 				$res=$this->pdo->prepare($sql)->execute(array(
                 	$data->__GET('nameCompany'),
@@ -867,7 +867,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ca_1_company ORDER BY idCompany DESC ");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_1_company ORDER BY idCompany DESC ");	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -886,7 +886,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ca_1_company WHERE idCompany = ? ");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_1_company WHERE idCompany = ? ");	
 				$stm->execute(array($company));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -972,7 +972,7 @@ class Model
 
 		public function PositionAdd(Enti $data){
 			try {
-				$sql = "INSERT INTO ca_7_position (namePosition, credentialPosition, statusPosition) 
+				$sql = "INSERT INTO tgb.ca_7_position (namePosition, credentialPosition, statusPosition) 
 					VALUES (?, ?, ?)";
 				$res=$this->pdo->prepare($sql)->execute(array(
 					$data->__GET('namePosition'),
@@ -989,7 +989,7 @@ class Model
 		public function PositionListU($idPosition){
 			try {
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ca_7_position WHERE idPosition = ?");	
+				$stm = $this->pdo->prepare("SELECT * FROM tgb.ca_7_position WHERE idPosition = ?");	
 				$stm->execute(array($idPosition));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -1009,9 +1009,9 @@ class Model
 			{
 				$result=array();
 				if($employee == ""){
-					$stm = $this->pdo->prepare("SELECT * FROM ca_7_position");	
+					$stm = $this->pdo->prepare("SELECT * FROM tgb.ca_7_position");	
 				} else {
-					$stm = $this->pdo->prepare("SELECT * FROM ca_7_position where idPosition > 1");	
+					$stm = $this->pdo->prepare("SELECT * FROM tgb.ca_7_position where idPosition > 1");	
 				}
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
@@ -1035,9 +1035,9 @@ class Model
 					'idPosition' => $data->__GET('idPosition')
 				);
 				$aNewValues = array_values($aNewData);
-				$this->backupUpdate($aNewData,'ca_7_position','idPosition = '.$data->__GET('idPosition'), 'Puestos');
+				$this->backupUpdate($aNewData,'tgb.ca_7_position','idPosition = '.$data->__GET('idPosition'), 'Puestos');
 				
-				$sql = "UPDATE ca_7_position SET 
+				$sql = "UPDATE tgb.ca_7_position SET 
 							namePosition = ?,
 							credentialPosition = ?
 						WHERE idPosition = ?";
@@ -1063,8 +1063,8 @@ class Model
 					'idPosition' => $data->__GET('idPosition')
 				);
 				$aNewValues = array_values($aNewData);
-				$this->backupUpdate($aNewData,'ca_7_position','idPosition = '.$data->__GET('idPosition'), 'Puestos');
-				$sql = "UPDATE ca_7_position SET 
+				$this->backupUpdate($aNewData,'tgb.ca_7_position','idPosition = '.$data->__GET('idPosition'), 'Puestos');
+				$sql = "UPDATE tgb.ca_7_position SET 
 							statusPosition = ?
 						WHERE idPosition = ?";
 				$res=$this->pdo->prepare($sql)->execute($aNewValues);
@@ -2019,10 +2019,10 @@ class Model
 									INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
 									INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
 									INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
-									INNER JOIN ta_1_user AS t1u ON t7u.userUnloading = t1u.idUser
-									INNER JOIN ta_1_user AS t1uc ON t7u.userUnloadingC = t1uc.idUser
-									INNER JOIN ta_1_user AS t1ue ON t7u.userUnloadingEPS = t1ue.idUser
-									INNER JOIN ta_1_user AS t1ut ON t7u.userUnloadingT = t1ut.idUser
+									INNER JOIN tbg.ta_1_user AS t1u ON t7u.userUnloading = t1u.idUser
+									INNER JOIN tbg.ta_1_user AS t1uc ON t7u.userUnloadingC = t1uc.idUser
+									INNER JOIN tbg.ta_1_user AS t1ue ON t7u.userUnloadingEPS = t1ue.idUser
+									INNER JOIN tbg.ta_1_user AS t1ut ON t7u.userUnloadingT = t1ut.idUser
 									WHERE t7u.idUnloading = ? ");	
 				$stm->execute(array($id));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
@@ -3102,7 +3102,7 @@ class Model
 			{
 				$e_SQL ="SELECT t7s.*, t1u.nameUser,nameRoute
 				FROM ta_7_settlement AS t7s
-				JOIN ta_1_user AS t1u ON t7s.userSettlement = t1u.idUser
+				JOIN tbg.ta_1_user AS t1u ON t7s.userSettlement = t1u.idUser
 				JOIN ta_1_route AS t1r ON t7s.routeSettlement = t1r.idRoute
 				WHERE idSettlement = ?";
 				$result=array();
@@ -3955,7 +3955,7 @@ class Model
 			  dateCut,
 			  timeCut
 			FROM ta_7_cut AS t7c
-			INNER JOIN ta_1_user AS t1u ON t7c.userCut = t1u.idUser
+			INNER JOIN tbg.ta_1_user AS t1u ON t7c.userCut = t1u.idUser
 			WHERE idCut =  ?";
 			try {
 				$stm = $this->pdo->prepare($e_SQL);	
@@ -3990,7 +3990,7 @@ class Model
 			  dateCut,
 			  timeCut
 			FROM ta_7_cut AS t7c
-			INNER JOIN ta_1_user AS t1u ON t7c.userCut = t1u.idUser
+			INNER JOIN tbg.ta_1_user AS t1u ON t7c.userCut = t1u.idUser
 			WHERE statusCut = '1'";
 			try {
 				$stm = $this->pdo->prepare($e_SQL);	
@@ -4273,8 +4273,8 @@ class Model
 				  positionUser,
 				  namePosition,
 				  credentialPosition
-				FROM ta_1_user
-				JOIN ca_7_position ON positionUser = idPosition
+				FROM tbg.ta_1_user
+				JOIN tgb.ca_7_position ON positionUser = idPosition
 				WHERE statusUser = '1' AND idUSer  = ?");	
 				$stm->execute(array($idUser,));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
