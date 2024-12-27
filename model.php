@@ -20,6 +20,7 @@ class Model
 			$this->pdo = null;
 		}
 
+
 		////////////   ***user***   /////////
 
 		public function UserAdd(Enti $data){
@@ -49,7 +50,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_1_user INNER JOIN tgb.ca_7_position ON tbg.ta_1_user.positionUser = tgb.ca_7_position.idPosition INNER JOIN tbg.ca_1_company ON tbg.ta_1_user.companyUser=tbg.ca_1_company.idCompany WHERE tbg.ta_1_user.statusUser = 1 AND tbg.ta_1_user.profileUser != 1 ORDER BY tbg.ta_1_user.idUser DESC ");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_1_user INNER JOIN tbg.ca_7_position ON ta_1_user.positionUser = ca_7_position.idPosition INNER JOIN tbg.ca_1_company ON ta_1_user.companyUser=ca_1_company.idCompany WHERE ta_1_user.statusUser = 1 AND ta_1_user.profileUser != 1 ORDER BY ta_1_user.idUser DESC ");	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -75,7 +76,7 @@ class Model
 			{
 				$e_SQL = "SELECT
 				  COUNT(t1u.idUser) AS userCountPosition
-				FROM tgb.ca_7_position AS c7p
+				FROM tbg.ca_7_position AS c7p
 				LEFT JOIN tbg.ta_1_user AS t1u ON t1u.positionUser = c7p.idPosition
 				WHERE idPosition = '{$positionUser}'";
 				if($baseUser != ""){
@@ -101,7 +102,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_1_user INNER JOIN tgb.ca_7_position ON tbg.ta_1_user.positionUser = tgb.ca_7_position.idPosition INNER JOIN tbg.ca_1_company ON tbg.ta_1_user.companyUser=tbg.ca_1_company.idCompany WHERE tbg.ta_1_user.statusUser = 1 AND tbg.ta_1_user.idUser = ? ORDER BY tbg.ta_1_user.idUser DESC ");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_1_user INNER JOIN tbg.ca_7_position ON ta_1_user.positionUser = ca_7_position.idPosition INNER JOIN tbg.ca_1_company ON ta_1_user.companyUser=ca_1_company.idCompany WHERE ta_1_user.statusUser = 1 AND ta_1_user.idUser = ? ORDER BY ta_1_user.idUser DESC ");	
 				$stm->execute(array($euid));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -129,7 +130,7 @@ class Model
 			{
 				$result=array();
 				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_1_user AS t1u 
-				INNER JOIN ta_7_unloading AS t7u ON t1u.idUser=t7u.userUnloading 
+				INNER JOIN tbg.ta_7_unloading AS t7u ON t1u.idUser=t7u.userUnloading 
 				WHERE t7u.idUnloading = ? ");	
 				$stm->execute(array($id));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
@@ -148,7 +149,7 @@ class Model
 			{
 				$result=array();
 				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_1_user AS t1u 
-				INNER JOIN ta_7_unloading AS t7u ON t1u.idUser=t7u.userUnloadingC 
+				INNER JOIN tbg.ta_7_unloading AS t7u ON t1u.idUser=t7u.userUnloadingC 
 				WHERE t7u.idUnloading = ? ");	
 				$stm->execute(array($id));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
@@ -167,7 +168,7 @@ class Model
 			{
 				$result=array();
 				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_1_user AS t1u 
-				INNER JOIN ta_7_unloading AS t7u ON t1u.idUser=t7u.userUnloadingEPS 
+				INNER JOIN tbg.ta_7_unloading AS t7u ON t1u.idUser=t7u.userUnloadingEPS 
 				WHERE t7u.idUnloading = ? ");	
 				$stm->execute(array($id));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
@@ -186,7 +187,7 @@ class Model
 			{
 				$result=array();
 				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_1_user AS t1u 
-				INNER JOIN ta_7_unloading AS t7u ON t1u.idUser=t7u.userUnloadingT 
+				INNER JOIN tbg.ta_7_unloading AS t7u ON t1u.idUser=t7u.userUnloadingT 
 				WHERE t7u.idUnloading = ? ");	
 				$stm->execute(array($id));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
@@ -214,8 +215,8 @@ class Model
 						'idUser' => $data->__GET('idUser')
 					);
 					$aNewValues = array_values($aNewData);
-					$this->backupUpdate($aNewData,'tbg.ta_1_user','idUser = '.$data->__GET('idUser'), 'Usuarios');
-					$sql = "UPDATE tbg.ta_1_user SET 
+					$this->backupUpdate($aNewData,'ta_1_user','idUser = '.$data->__GET('idUser'), 'Usuarios');
+					$sql = "UPDATE ta_1_user SET 
 								passwordUser = ?,
 								fullNameUser = ?,
 								emailUser = ?,
@@ -244,8 +245,8 @@ class Model
 						'idUser' => $data->__GET('idUser')
 					);
 					$aNewValues = array_values($aNewData);
-					$this->backupUpdate($aNewData,'tbg.ta_1_user','idUser = '.$data->__GET('idUser'), 'Usuarios');
-					$sql = "UPDATE tbg.ta_1_user SET 
+					$this->backupUpdate($aNewData,'ta_1_user','idUser = '.$data->__GET('idUser'), 'Usuarios');
+					$sql = "UPDATE ta_1_user SET 
 								emailUser = ?,
 								fullNameUser = ?,
 								phoneUser = ?,
@@ -279,8 +280,8 @@ class Model
 					'idUser' => $data->__GET('idUser')
 				);
 				$aNewValues = array_values($aNewData);
-				$this->backupUpdate($aNewData,'tbg.ta_1_user','idUser = '.$data->__GET('idUser'), 'Usuarios');
-				$sql = "UPDATE tbg.ta_1_user SET 
+				$this->backupUpdate($aNewData,'ta_1_user','idUser = '.$data->__GET('idUser'), 'Usuarios');
+				$sql = "UPDATE ta_1_user SET 
 							statusUser = ?
 						WHERE idUser = ?";
 						/*
@@ -305,7 +306,7 @@ class Model
 		public function EmployeeAdd(Enti $data){
 			//print_r($data);
 			try {
-				$sql = "INSERT INTO ta_7_employee (codeEmployee,namesEmployee,lastnameEmployee,mlastnameEmployee,
+				$sql = "INSERT INTO tbg.ta_7_employee (codeEmployee,namesEmployee,lastnameEmployee,mlastnameEmployee,
 				companyEmployee,baseEmployee,nssEmployee,rfcEmployee,curpEmployee,departamentEmployee,positionEmployee,
 				dateadmissionEmployee,phoneEmployee,emailEmployee,countryEmployee,stateEmployee,municipalityEmployee,
 				colonyEmployee,streeEmployee,cpEmployee,birthdaydateEmployee,ageEmployee,genderEmployee,maritalEmployee,
@@ -313,14 +314,14 @@ class Model
 				accountEmployee,interbankcodeEmployee,beneficiaryEmployee,beneficiaryrelationshipEmployee,
 				benefeciaryrfcEmployee,beneficiarycountryEmployee,beneficiarystateEmployee,beneficiarymunicipalityEmployee,
 				beneficiarycolonyEmployee,beneficiarystreeEmployee,beneficiarycpEmployee,ifinfonavitcreditEmployee,
-				creditnumberinfonavitEmployee,discounttypeInfoEmployee,discountfactorEmployee,
-				iffonacotcreditEmployee,creditnumberfonacotEmployee,monthlydiscountEmployee,
+				creditnumberinfonavitEmployee,totalinfonavitEmployee,amountPaidInfonavitEmployee,
+				balanceInfonavitEmployee,bimonthlydiscountEmployee,
 				grossmonthlysalaryEmployee,socialpreventionEmployee,indasaEmployee,
 				bonusdaysEployee,holidaysEmployee,vacationbonusporEmployee,
 				imgEmployee,dateEmployee,timeEmployee) 
 					VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
 					?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-					?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+					?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 				$res=$this->pdo->prepare($sql)->execute(array(
 					$data->__GET('codeEmployee'),
 					$data->__GET('namesEmployee'),
@@ -365,11 +366,10 @@ class Model
 					$data->__GET('beneficiarycpEmployee'),
 					$data->__GET('ifinfonavitcreditEmployee'),
 					$data->__GET('creditnumberinfonavitEmployee'),
-					$data->__GET('discounttypeInfoEmployee'),
-					$data->__GET('discountfactorEmployee'),
-					$data->__GET('iffonacotcreditEmployee'),
-					$data->__GET('creditnumberfonacotEmployee'),
-					$data->__GET('monthlydiscountEmployee'),
+					$data->__GET('totalinfonavitEmployee'),
+					$data->__GET('amountPaidInfonavitEmployee'),
+					$data->__GET('balanceInfonavitEmployee'),
+					$data->__GET('bimonthlydiscountEmployee'),
 					$data->__GET('grossmonthlysalaryEmployee'),
 					$data->__GET('socialpreventionEmployee'),
 					$data->__GET('indasaEmployee'),
@@ -391,7 +391,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_7_employee WHERE statusEmployee = 1 AND positionEmployee = 2 ORDER BY idEmployee DESC LIMIT 1 ");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_7_employee WHERE statusEmployee = 1 AND positionEmployee = 2 ORDER BY idEmployee DESC LIMIT 1 ");	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -404,84 +404,48 @@ class Model
 			} catch (Exception $e)
 			{die($e->getMessage());}
 		}
-		public function EmployeeListUnloadin(){
+		public function EmployeeUnloadingList(){
 			try 
 			{
+				$e_SQL = "SELECT
+					idUser,
+					nameUser,
+					fullNameUser,
+					emailUser,
+					positionUser,
+					namePosition,
+					baseUser,
+					statusUser
+				FROM tbg.ta_1_user
+				JOIN tbg.ca_7_position ON positionUser = idPosition
+				WHERE statusUser = 1
+				AND positionUser = 10
+				ORDER BY idUser";
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_7_employee WHERE statusEmployee = 1 AND positionEmployee = 2 ORDER BY CODEEmployee ASC ");	
+				$stm = $this->pdo->prepare($e_SQL);	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
 					$ent = new Enti();
-					$ent->__SET('idEmployee', $r->idEmployee);
-					$ent->__SET('codeEmployee', $r->codeEmployee);
-					$ent->__SET('namesEmployee', $r->namesEmployee);
-					$ent->__SET('lastnameEmployee', $r->lastnameEmployee);
-					$ent->__SET('mlastnameEmployee', $r->mlastnameEmployee);
-					$ent->__SET('companyEmployee', $r->companyEmployee);
-					$ent->__SET('baseEmployee', $r->baseEmployee);
-					$ent->__SET('nssEmployee', $r->nssEmployee);
-					$ent->__SET('rfcEmployee', $r->rfcEmployee);
-					$ent->__SET('curpEmployee', $r->curpEmployee);
-					$ent->__SET('departamentEmployee', $r->departamentEmployee);
-					$ent->__SET('positionEmployee', $r->positionEmployee);
-					$ent->__SET('dateadmissionEmployee', $r->dateadmissionEmployee);
-					$ent->__SET('phoneEmployee', $r->phoneEmployee);
-					$ent->__SET('emailEmployee', $r->emailEmployee);
-					$ent->__SET('countryEmployee', $r->countryEmployee);
-					$ent->__SET('stateEmployee', $r->stateEmployee);
-					$ent->__SET('municipalityEmployee', $r->municipalityEmployee);
-					$ent->__SET('colonyEmployee', $r->colonyEmployee);
-					$ent->__SET('streeEmployee', $r->streeEmployee);
-					$ent->__SET('cpEmployee', $r->cpEmployee);
-					$ent->__SET('birthdaydateEmployee', $r->birthdaydateEmployee);
-					$ent->__SET('ageEmployee', $r->ageEmployee);
-					$ent->__SET('genderEmployee', $r->genderEmployee);
-					$ent->__SET('maritalEmployee', $r->maritalEmployee);
-					$ent->__SET('nationalityEmployee', $r->nationalityEmployee);
-					$ent->__SET('statebirthEmployee', $r->statebirthEmployee);
-					$ent->__SET('municipalitybirthEmployee', $r->municipalitybirthEmployee);
-					$ent->__SET('licenseDriverEmployee', $r->licenseDriverEmployee);
-					$ent->__SET('companyemailEmployee', $r->companyemailEmployee);
-					$ent->__SET('bankEmployee', $r->bankEmployee);
-					$ent->__SET('accountEmployee', $r->accountEmployee);
-					$ent->__SET('interbankcodeEmployee', $r->interbankcodeEmployee);
-					$ent->__SET('beneficiaryEmployee', $r->beneficiaryEmployee);
-					$ent->__SET('beneficiaryrelationshipEmployee', $r->beneficiaryrelationshipEmployee);
-					$ent->__SET('benefeciaryrfcEmployee', $r->benefeciaryrfcEmployee);
-					$ent->__SET('beneficiarycountryEmployee', $r->beneficiarycountryEmployee);
-					$ent->__SET('beneficiarystateEmployee', $r->beneficiarystateEmployee);
-					$ent->__SET('beneficiarymunicipalityEmployee', $r->beneficiarymunicipalityEmployee);
-					$ent->__SET('beneficiarycolonyEmployee', $r->beneficiarycolonyEmployee);
-					$ent->__SET('beneficiarystreeEmployee', $r->beneficiarystreeEmployee);
-					$ent->__SET('beneficiarycpEmployee', $r->beneficiarycpEmployee);
-					$ent->__SET('ifinfonavitcreditEmployee', $r->ifinfonavitcreditEmployee);
-					$ent->__SET('creditnumberinfonavitEmployee', $r->creditnumberinfonavitEmployee);
-					$ent->__SET('discounttypeInfoEmployee', $r->discounttypeInfoEmployee);
-					$ent->__SET('discountfactorEmployee', $r->discountfactorEmployee);
-					$ent->__SET('iffonacotcreditEmployee', $r->iffonacotcreditEmployee);
-					$ent->__SET('creditnumberfonacotEmployee', $r->creditnumberfonacotEmployee);
-					$ent->__SET('monthlydiscountEmployee', $r->monthlydiscountEmployee);
-					$ent->__SET('grossmonthlysalaryEmployee', $r->grossmonthlysalaryEmployee);
-					$ent->__SET('socialpreventionEmployee', $r->socialpreventionEmployee);
-					$ent->__SET('indasaEmployee', $r->indasaEmployee);
-					$ent->__SET('bonusdaysEployee', $r->bonusdaysEployee);
-					$ent->__SET('holidaysEmployee', $r->holidaysEmployee);
-					$ent->__SET('vacationbonusporEmployee', $r->vacationbonusporEmployee);
-					$ent->__SET('statusEmployee', $r->statusEmployee);
-					$ent->__SET('dateEmployee', $r->dateEmployee);
-					$ent->__SET('timeEmployee', $r->timeEmployee);
+					$ent->__SET('idUser', $r->idUser);
+					$ent->__SET('nameUser', $r->nameUser);
+					$ent->__SET('fullNameUser', $r->fullNameUser);
+					$ent->__SET('emailUser', $r->emailUser);
+					$ent->__SET('positionUser', $r->positionUser);
+					$ent->__SET('namePosition', $r->namePosition);
+					$ent->__SET('baseUser', $r->baseUser);
+					$ent->__SET('statusUser', $r->statusUser);
 					$result[] = $ent;
 				}
 				return $result;
 			} catch (Exception $e)
 			{die($e->getMessage());}
 		}
-		public function EmployeeList(){
+		public function EmployeeDriverList(){
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_7_employee WHERE statusEmployee = 1 AND positionEmployee = 2 ORDER BY codeEmployee ASC ");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_7_employee WHERE statusEmployee = 1 AND positionEmployee = 2 ORDER BY codeEmployee ASC ");	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -530,11 +494,10 @@ class Model
 					$ent->__SET('beneficiarycpEmployee', $r->beneficiarycpEmployee);
 					$ent->__SET('ifinfonavitcreditEmployee', $r->ifinfonavitcreditEmployee);
 					$ent->__SET('creditnumberinfonavitEmployee', $r->creditnumberinfonavitEmployee);
-					$ent->__SET('discounttypeInfoEmployee', $r->discounttypeInfoEmployee);
-					$ent->__SET('discountfactorEmployee', $r->discountfactorEmployee);
-					$ent->__SET('iffonacotcreditEmployee', $r->iffonacotcreditEmployee);
-					$ent->__SET('creditnumberfonacotEmployee', $r->creditnumberfonacotEmployee);
-					$ent->__SET('monthlydiscountEmployee', $r->monthlydiscountEmployee);
+					$ent->__SET('totalinfonavitEmployee', $r->totalinfonavitEmployee);
+					$ent->__SET('balanceInfonavitEmployee', $r->balanceInfonavitEmployee);
+					$ent->__SET('amountPaidInfonavitEmployee', $r->amountPaidInfonavitEmployee);
+					$ent->__SET('bimonthlydiscountEmployee', $r->bimonthlydiscountEmployee);
 					$ent->__SET('grossmonthlysalaryEmployee', $r->grossmonthlysalaryEmployee);
 					$ent->__SET('socialpreventionEmployee', $r->socialpreventionEmployee);
 					$ent->__SET('indasaEmployee', $r->indasaEmployee);
@@ -564,29 +527,46 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_7_employee AS t7e
-				INNER JOIN ca_1_base AS c1b
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_7_employee AS t7e
+				INNER JOIN tbg.ca_1_base AS c1b
 				ON t7e.baseEmployee=c1b.idBase
-				INNER JOIN ca_7_departament AS c7d
+				INNER JOIN tbg.ca_7_departament AS c7d
 				ON t7e.departamentEmployee=c7d.idDepartament
-				INNER JOIN tgb.ca_7_position AS c7p
+				INNER JOIN tbg.ca_7_position AS c7p
 				ON t7e.positionEmployee=c7p.idPosition
-				INNER JOIN ca_7_state AS c7s
+				INNER JOIN tbg.ca_7_state AS c7s
 				ON t7e.stateEmployee=c7s.idState
-				INNER JOIN ca_7_municipality AS c7m
+				INNER JOIN tbg.ca_7_municipality AS c7m
 				ON t7e.municipalityEmployee=c7m.idMunicipality
-				LEFT JOIN ca_7_gender AS c7g
+				LEFT JOIN tbg.ca_7_gender AS c7g
 				ON t7e.genderEmployee=c7g.idGender
-				LEFT JOIN ca_7_marital AS c7ma
+				LEFT JOIN tbg.ca_7_marital AS c7ma
 				ON t7e.maritalEmployee=c7ma.idMarital
-				LEFT JOIN ca_7_bank AS c7ba
+				LEFT JOIN tbg.ca_7_bank AS c7ba
 				ON t7e.bankEmployee=c7ba.idBank
-				LEFT JOIN ca_7_relationship AS c7r
+				LEFT JOIN tbg.ca_7_relationship AS c7r
 				ON t7e.beneficiaryrelationshipEmployee=c7r.idRelationship
 				WHERE t7e.idEmployee = ? AND t7e.statusEmployee = 1 ");	
 				$stm->execute(array($idE));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
+					/////
+    				foreach ((array)$this->EmployeeVacationData($idE) as $rVacation) :
+    				    $dayUsed=$rVacation->__GET('dayUsed');
+    				endforeach;
+    				$dateStart = new DateTime($r->dateadmissionEmployee);
+    				$dateHow= new DateTime(date('Y-m-d'));
+    				$diference = $dateStart->diff($dateHow);
+    				$yearsPassed = $diference->y;
+    				$dayVacation = 0;
+    				$availableDays = 0;
+    				if($yearsPassed > 0){
+    				    foreach ((array)$this->VacationLaw($yearsPassed) as $rVacation) :
+    				        $dayVacation=$rVacation->__GET('dayVacation');
+    				    endforeach;
+    				    $availableDays = $dayVacation - $dayUsed;
+    				}
+					/////////
 					$ent = new Enti();
 					$ent->__SET('idBase', $r->idBase);
 					$ent->__SET('nameBase', $r->nameBase);
@@ -650,16 +630,16 @@ class Model
 					$ent->__SET('beneficiarycpEmployee', $r->beneficiarycpEmployee);
 					$ent->__SET('ifinfonavitcreditEmployee', $r->ifinfonavitcreditEmployee);
 					$ent->__SET('creditnumberinfonavitEmployee', $r->creditnumberinfonavitEmployee);
-					$ent->__SET('discounttypeInfoEmployee', $r->discounttypeInfoEmployee);
-					$ent->__SET('discountfactorEmployee', $r->discountfactorEmployee);
-					$ent->__SET('iffonacotcreditEmployee', $r->iffonacotcreditEmployee);
-					$ent->__SET('creditnumberfonacotEmployee', $r->creditnumberfonacotEmployee);
-					$ent->__SET('monthlydiscountEmployee', $r->monthlydiscountEmployee);
+					$ent->__SET('totalinfonavitEmployee', $r->totalinfonavitEmployee);
+					$ent->__SET('balanceInfonavitEmployee', $r->balanceInfonavitEmployee);
+					$ent->__SET('amountPaidInfonavitEmployee', $r->amountPaidInfonavitEmployee);
+					$ent->__SET('bimonthlydiscountEmployee', $r->bimonthlydiscountEmployee);
 					$ent->__SET('grossmonthlysalaryEmployee', $r->grossmonthlysalaryEmployee);
 					$ent->__SET('socialpreventionEmployee', $r->socialpreventionEmployee);
 					$ent->__SET('indasaEmployee', $r->indasaEmployee);
 					$ent->__SET('bonusdaysEployee', $r->bonusdaysEployee);
-					$ent->__SET('holidaysEmployee', $r->holidaysEmployee);
+					//$ent->__SET('holidaysEmployee', $r->holidaysEmployee);
+					$ent->__SET('holidaysEmployee', $availableDays);
 					$ent->__SET('vacationbonusporEmployee', $r->vacationbonusporEmployee);
 					$ent->__SET('statusEmployee', $r->statusEmployee);
 					$ent->__SET('imgEmployee', $r->imgEmployee);
@@ -734,11 +714,10 @@ class Model
 					'beneficiarycpEmployee' => $data->__GET('beneficiarycpEmployee'),
 					'ifinfonavitcreditEmployee' => $data->__GET('ifinfonavitcreditEmployee'),
 					'creditnumberinfonavitEmployee' => $data->__GET('creditnumberinfonavitEmployee'),
-					'discounttypeInfoEmployee' => $data->__GET('discounttypeInfoEmployee'),
-					'discountfactorEmployee' => $data->__GET('discountfactorEmployee'),
-					'iffonacotcreditEmployee' => $data->__GET('iffonacotcreditEmployee'),
-					'creditnumberfonacotEmployee' => $data->__GET('creditnumberfonacotEmployee'),
-					'monthlydiscountEmployee' => $data->__GET('monthlydiscountEmployee'),
+					'totalinfonavitEmployee' => $data->__GET('totalinfonavitEmployee'),
+					'balanceInfonavitEmployee' => $data->__GET('balanceInfonavitEmployee'),
+					'amountPaidInfonavitEmployee' => $data->__GET('amountPaidInfonavitEmployee'),
+					'bimonthlydiscountEmployee' => $data->__GET('bimonthlydiscountEmployee'),
 					'grossmonthlysalaryEmployee' => $data->__GET('grossmonthlysalaryEmployee'),
 					'socialpreventionEmployee' => $data->__GET('socialpreventionEmployee'),
 					'indasaEmployee' => $data->__GET('indasaEmployee'),
@@ -778,11 +757,10 @@ class Model
 							beneficiarycpEmployee = ?,
 							ifinfonavitcreditEmployee = ?,
 							creditnumberinfonavitEmployee = ?,
-							discounttypeInfoEmployee = ?,
-							discountfactorEmployee = ?,
-							iffonacotcreditEmployee = ?,
-							creditnumberfonacotEmployee = ?,
-							monthlydiscountEmployee = ?,
+							totalinfonavitEmployee = ?,
+							balanceInfonavitEmployee = ?,
+							amountPaidInfonavitEmployee = ?,
+							bimonthlydiscountEmployee = ?,
 							grossmonthlysalaryEmployee = ?,
 							socialpreventionEmployee = ?,
 							indasaEmployee = ?,
@@ -938,7 +916,7 @@ class Model
 
 		public function DepartamentAdd(Enti $data){
 			try {
-				$sql = "INSERT INTO ca_7_departament (nameDepartament) 
+				$sql = "INSERT INTO tbg.ca_7_departament (nameDepartament) 
 					VALUES (?)";
 				$res=$this->pdo->prepare($sql)->execute(array(
 					$data->__GET('nameDepartament')
@@ -954,7 +932,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ca_7_departament ORDER BY nameDepartament ASC");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_7_departament ORDER BY nameDepartament ASC");	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -972,7 +950,7 @@ class Model
 
 		public function PositionAdd(Enti $data){
 			try {
-				$sql = "INSERT INTO tgb.ca_7_position (namePosition, credentialPosition, statusPosition) 
+				$sql = "INSERT INTO tbg.ca_7_position (namePosition, credentialPosition, statusPosition) 
 					VALUES (?, ?, ?)";
 				$res=$this->pdo->prepare($sql)->execute(array(
 					$data->__GET('namePosition'),
@@ -989,7 +967,7 @@ class Model
 		public function PositionListU($idPosition){
 			try {
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM tgb.ca_7_position WHERE idPosition = ?");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_7_position WHERE idPosition = ?");	
 				$stm->execute(array($idPosition));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -1009,9 +987,9 @@ class Model
 			{
 				$result=array();
 				if($employee == ""){
-					$stm = $this->pdo->prepare("SELECT * FROM tgb.ca_7_position");	
+					$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_7_position");	
 				} else {
-					$stm = $this->pdo->prepare("SELECT * FROM tgb.ca_7_position where idPosition > 1");	
+					$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_7_position where idPosition > 1");	
 				}
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
@@ -1035,9 +1013,9 @@ class Model
 					'idPosition' => $data->__GET('idPosition')
 				);
 				$aNewValues = array_values($aNewData);
-				$this->backupUpdate($aNewData,'tgb.ca_7_position','idPosition = '.$data->__GET('idPosition'), 'Puestos');
+				$this->backupUpdate($aNewData,'ca_7_position','idPosition = '.$data->__GET('idPosition'), 'Puestos');
 				
-				$sql = "UPDATE tgb.ca_7_position SET 
+				$sql = "UPDATE ca_7_position SET 
 							namePosition = ?,
 							credentialPosition = ?
 						WHERE idPosition = ?";
@@ -1063,8 +1041,8 @@ class Model
 					'idPosition' => $data->__GET('idPosition')
 				);
 				$aNewValues = array_values($aNewData);
-				$this->backupUpdate($aNewData,'tgb.ca_7_position','idPosition = '.$data->__GET('idPosition'), 'Puestos');
-				$sql = "UPDATE tgb.ca_7_position SET 
+				$this->backupUpdate($aNewData,'ca_7_position','idPosition = '.$data->__GET('idPosition'), 'Puestos');
+				$sql = "UPDATE ca_7_position SET 
 							statusPosition = ?
 						WHERE idPosition = ?";
 				$res=$this->pdo->prepare($sql)->execute($aNewValues);
@@ -1088,7 +1066,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ca_7_bank");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_7_bank");	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -1108,7 +1086,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ca_7_gender");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_7_gender");	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -1128,7 +1106,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ca_7_marital WHERE idMarital > 0");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_7_marital WHERE idMarital > 0");	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -1148,7 +1126,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ca_7_relationship");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_7_relationship");	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -1168,7 +1146,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ca_7_typebenefits");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_7_typebenefits");	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -1184,7 +1162,7 @@ class Model
 		public function BenefitsAdd(Enti $data){
 			try {
 				//print_r($data);
-				$sql = "INSERT INTO ta_7_benefits (employeeBenefits,idTypeBenefits) 
+				$sql = "INSERT INTO tbg.ta_7_benefits (employeeBenefits,idTypeBenefits) 
 					VALUES (?, ?)";
 				$res=$this->pdo->prepare($sql)->execute(array(
 					$data->__GET('employeeBenefits'),
@@ -1201,8 +1179,8 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_7_benefits AS tb
-				INNER JOIN ca_7_typebenefits AS cb ON tb.idTypeBenefits=cb.idTypeBenefits
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_7_benefits AS tb
+				INNER JOIN tbg.ca_7_typebenefits AS cb ON tb.idTypeBenefits=cb.idTypeBenefits
 				WHERE tb.statusBenefits = 1 AND tb.employeeBenefits = ? ");	
 				$stm->execute(array($idE));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
@@ -1253,7 +1231,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ca_7_state");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_7_state");	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -1270,7 +1248,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ca_7_state ORDER BY nameState ASC");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_7_state ORDER BY nameState ASC");	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -1290,7 +1268,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ca_7_municipality where stateMunicipality = ? ORDER BY nameMunicipality ASC ");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_7_municipality where stateMunicipality = ? ORDER BY nameMunicipality ASC ");	
 				$stm->execute(array($stateP));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -1310,9 +1288,9 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ca_1_base AS bc 
-											INNER JOIN ta_1_bus AS bs ON bc.idBase = bs.baseBus 
-											INNER JOIN ta_7_Employee AS ds ON bc.idBase = ds.baseEmployee");
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_1_base AS bc 
+											INNER JOIN tbg.ta_1_bus AS bs ON bc.idBase = bs.baseBus 
+											INNER JOIN tbg.ta_7_Employee AS ds ON bc.idBase = ds.baseEmployee");
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -1334,7 +1312,7 @@ class Model
 			try 
 			{
 					$result=array();
-					$stm = $this->pdo->prepare("SELECT * FROM ca_1_base ORDER BY nameBase");	
+					$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_1_base ORDER BY nameBase");	
 					$stm->execute();
 				
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
@@ -1355,12 +1333,12 @@ class Model
 			{
 				if (count($bu) == 0) {
 					$result=array();
-					$stm = $this->pdo->prepare("SELECT * FROM ca_1_base ORDER BY nameBase");	
+					$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_1_base ORDER BY nameBase");	
 					$stm->execute();
 				}else{
 					$buAux = implode("','",$bu);
 					$result=array();
-					$stm = $this->pdo->prepare("SELECT * FROM ca_1_base WHERE idBase IN('{$buAux}') ORDER BY nameBase");	
+					$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_1_base WHERE idBase IN('{$buAux}') ORDER BY nameBase");	
 					$stm->execute();
 				}
 				
@@ -1381,7 +1359,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ca_1_base WHERE idBase = ? ");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_1_base WHERE idBase = ? ");	
 				$stm->execute(array($baseUnloading));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -1402,7 +1380,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_1_route WHERE statusRoute = '1'  ORDER BY nameRoute ASC");
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_1_route WHERE statusRoute = '1'  ORDER BY nameRoute ASC");
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -1433,7 +1411,7 @@ class Model
 				  lapDurationRoute,
 				  jorneyKMRoute,
 				  statusRoute
-				FROM ta_1_route WHERE idRoute = ? ");	
+				FROM tbg.ta_1_route WHERE idRoute = ? ");	
 				$stm->execute(array($idRoute));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -1454,7 +1432,7 @@ class Model
 		}
 		public function RouteAdd(Enti $data){
 			try {
-				$sql = "INSERT INTO ta_1_route (nameRoute, lapDurationRoute, jorneyKMRoute) VALUES (?, ?, ?)";
+				$sql = "INSERT INTO tbg.ta_1_route (nameRoute, lapDurationRoute, jorneyKMRoute) VALUES (?, ?, ?)";
 				$res=$this->pdo->prepare($sql)->execute(array(
 					$data->__GET('nameRoute'),
 					$data->__GET('lapDurationRoute'),
@@ -1530,7 +1508,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_1_bus WHERE statusBus = '1' ORDER BY idBus ASC ");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_1_bus WHERE statusBus = '1' ORDER BY idBus ASC ");	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -1562,7 +1540,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_1_bus WHERE baseBus = ?  ORDER BY codeBus ASC ");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_1_bus WHERE baseBus = ?  ORDER BY codeBus ASC ");	
 				$stm->execute(array($baseBus));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -1595,7 +1573,7 @@ class Model
 				  dateBus,
 				  timeBus,
 				  statusBus
-				FROM ta_1_bus WHERE statusBus = 1 AND idBus = ? ");	
+				FROM tbg.ta_1_bus WHERE statusBus = 1 AND idBus = ? ");	
 				$stm->execute(array($idBus));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -1624,7 +1602,7 @@ class Model
 		}
 		public function BusAdd(Enti $data){
 			try {
-				$sql = "INSERT INTO ta_1_bus (economicBus, plateEBus, plateFBus, serialBus, engineBus, permitBus, modelBus, brandBus, bodyworkBus, fuelBus, baseBus, dateBus, timeBus ) 
+				$sql = "INSERT INTO tbg.ta_1_bus (economicBus, plateEBus, plateFBus, serialBus, engineBus, permitBus, modelBus, brandBus, bodyworkBus, fuelBus, baseBus, dateBus, timeBus ) 
 				VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 				$res=$this->pdo->prepare($sql)->execute(array(
 					$data->__GET('economicBus'),
@@ -1750,8 +1728,8 @@ class Model
 
 		public function UnloadingAdd(Enti $data){
 			try {
-				$sql = "INSERT INTO ta_7_unloading (userUnloading,baseUnloading,busUnloading,employeeUnloading,countingOutUnloading,countingInUnloading,dateUnloading,timeUnloading) 
-					VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+				$sql = "INSERT INTO tbg.ta_7_unloading (userUnloading,baseUnloading,busUnloading,employeeUnloading,countingOutUnloading,countingInUnloading,commentsUnloading,dateUnloading,timeUnloading) 
+					VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 				$res=$this->pdo->prepare($sql)->execute(array(
 					$data->__GET('userUnloading'),
 					$data->__GET('baseUnloading'),
@@ -1759,7 +1737,7 @@ class Model
 					$data->__GET('employeeUnloading'),
 					$data->__GET('countingOutUnloading'),
 					$data->__GET('countingInUnloading'),
-					//$data->__GET('commentsUnloading'),
+					$data->__GET('commentsUnloading'),
 					$data->__GET('dateUnloading'),
 					$data->__GET('timeUnloading')
 					)
@@ -1794,7 +1772,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_7_unloading ORDER BY idUnloading DESC LIMIT 1");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_7_unloading ORDER BY idUnloading DESC LIMIT 1");	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -1811,10 +1789,10 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_7_unloading AS t7u
-									INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-									INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-									INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_7_unloading AS t7u
+									INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+									INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+									INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 									AND t7u.statusUnloading = 1
 									ORDER BY dateUnloading,timeUnloading ASC ");	
 				$stm->execute();
@@ -1842,10 +1820,10 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_7_unloading AS t7u
-									INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-									INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-									INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_7_unloading AS t7u
+									INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+									INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+									INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 									WHERE t7u.idUnloading = ?
 									ORDER BY dateUnloading,timeUnloading ASC ");	
 				$stm->execute(array($idU));
@@ -1941,10 +1919,10 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_7_unloading AS t7u
-									INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-									INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-									INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_7_unloading AS t7u
+									INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+									INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+									INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 									WHERE t7u.statusUnloading = 2
 									ORDER BY dateUnloading,timeUnloading ASC ");	
 				$stm->execute();
@@ -1978,10 +1956,10 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_7_unloading AS t7u
-									INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-									INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-									INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_7_unloading AS t7u
+									INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+									INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+									INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 									WHERE t7u.statusUnloading = 3
 									ORDER BY dateUnloading,timeUnloading ASC ");	
 				$stm->execute();
@@ -2015,10 +1993,10 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_7_unloading AS t7u
-									INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-									INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-									INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_7_unloading AS t7u
+									INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+									INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+									INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 									INNER JOIN tbg.ta_1_user AS t1u ON t7u.userUnloading = t1u.idUser
 									INNER JOIN tbg.ta_1_user AS t1uc ON t7u.userUnloadingC = t1uc.idUser
 									INNER JOIN tbg.ta_1_user AS t1ue ON t7u.userUnloadingEPS = t1ue.idUser
@@ -2071,10 +2049,10 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_7_unloading AS t7u
-									INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-									INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-									INNER JOIN ta_7_employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_7_unloading AS t7u
+									INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+									INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+									INNER JOIN tbg.ta_7_employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 									WHERE t7u.statusUnloading = 4");	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
@@ -2115,11 +2093,11 @@ class Model
 				$result=array();
 				$stm = $this->pdo->prepare("SELECT
 				*,
-				(SELECT SUM(t7t.totalTicket) FROM ta_7_ticket AS t7t INNER JOIN ca_7_concept AS c7c ON t7t.conceptTicket = c7c.idConcept WHERE t7t.unloadingTicket = t7u.idUnloading AND c7c.comissionConcept = '1') AS ticketTaquilla
-				FROM ta_7_unloading AS t7u
-				INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-				INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-				INNER JOIN ta_7_employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+				(SELECT SUM(t7t.totalTicket) FROM tbg.ta_7_ticket AS t7t INNER JOIN tbg.ca_7_concept AS c7c ON t7t.conceptTicket = c7c.idConcept WHERE t7t.unloadingTicket = t7u.idUnloading AND c7c.comissionConcept = '1') AS ticketTaquilla
+				FROM tbg.ta_7_unloading AS t7u
+				INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+				INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+				INNER JOIN tbg.ta_7_employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 				WHERE t7u.idUnloading = ? AND t7u.statusUnloading = 4");	
 				$stm->execute(array($idU));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
@@ -2159,11 +2137,11 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT *, (SELECT SUM(t7t.totalTicket) FROM ta_7_ticket AS t7t INNER JOIN ca_7_concept AS c7c ON t7t.conceptTicket = c7c.idConcept WHERE t7t.unloadingTicket = t7u.idUnloading AND c7c.comissionConcept = '1') AS ticketTaquilla
-				FROM ta_7_unloading AS t7u
-				INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-				INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-				INNER JOIN ta_7_employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+				$stm = $this->pdo->prepare("SELECT *, (SELECT SUM(t7t.totalTicket) FROM tbg.ta_7_ticket AS t7t INNER JOIN tbg.ca_7_concept AS c7c ON t7t.conceptTicket = c7c.idConcept WHERE t7t.unloadingTicket = t7u.idUnloading AND c7c.comissionConcept = '1') AS ticketTaquilla
+				FROM tbg.ta_7_unloading AS t7u
+				INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+				INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+				INNER JOIN tbg.ta_7_employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 				WHERE t7u.idUnloading = ?");	
 				$stm->execute(array($idU));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
@@ -2211,7 +2189,7 @@ class Model
 			{
 				$result=array();
 				$stm = $this->pdo->prepare("SELECT SUM(countingAsleep) AS countingAsleep 
-				FROM ta_7_asleep 
+				FROM tbg.ta_7_asleep 
 				WHERE employeeAsleep = ? AND statusAsleep = 1 ");	
 				$stm->execute(array($idemp));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
@@ -2231,7 +2209,7 @@ class Model
 			{
 				$result=array();
 				$stm = $this->pdo->prepare("SELECT SUM(amountTBullet) AS amountTBullet 
-				FROM ta_7_bullet 
+				FROM tbg.ta_7_bullet 
 				WHERE employeeBullet = ? AND statusBullet = 1 ");	
 				$stm->execute(array($idemp));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
@@ -2253,8 +2231,8 @@ class Model
 				  idSettlement,
                   debtSettlement,
 				  paymentsDebtSettlement
-                FROM ta_7_settlement AS t7s
-                LEFT JOIN ta_7_unloading AS t7u ON t7s.idUnloading = t7u.idUnloading
+                FROM tbg.ta_7_settlement AS t7s
+                LEFT JOIN tbg.ta_7_unloading AS t7u ON t7s.idUnloading = t7u.idUnloading
                 WHERE t7u.employeeUnloading = ?
                 AND debtSettlement > 0");	
 				$stm->execute(array($idemp));
@@ -2300,19 +2278,19 @@ class Model
 					perceptionSettlement,
 					statusSettlement,
 					idSettlement
-				FROM ta_7_unloading AS t7u
-				INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-				INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-				INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
-				INNER JOIN ta_7_settlement AS t7s ON t7u.idUnloading = t7s.idUnloading
-				INNER JOIN ta_1_route AS t1r ON t7s.routeSettlement = t1r.idRoute
+				FROM tbg.ta_7_unloading AS t7u
+				INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+				INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+				INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+				INNER JOIN tbg.ta_7_settlement AS t7s ON t7u.idUnloading = t7s.idUnloading
+				INNER JOIN tbg.ta_1_route AS t1r ON t7s.routeSettlement = t1r.idRoute
 				WHERE t7u.statusUnloading = 5
 				ORDER BY dateUnloading,timeUnloading ASC";
 				/*
-				$stm = $this->pdo->prepare("SELECT * FROM ta_7_unloading AS t7u
-									INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-									INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-									INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_7_unloading AS t7u
+									INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+									INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+									INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 									WHERE t7u.statusUnloading = 5
 									ORDER BY dateUnloading,timeUnloading ASC ");
 									*/
@@ -2351,12 +2329,57 @@ class Model
 			} catch (Exception $e)
 			{die($e->getMessage());}
 		}
+		public function UnloadingReport($aFiltros){
+			try 
+			{
+				$result=array();
+				$e_SQL = "SELECT
+					serialUnloading,
+					c1b.nameBase,
+					t1b.economicBus,
+					CONCAT(t7e.namesEmployee, ' ',t7e.lastnameEmployee,' ',t7e.mlastnameEmployee) AS employee,
+					t1u.fullNameUser,
+					CONCAT(t7u.dateUnloading, ' ', t7u.timeUnloading) AS dateUnloading,
+					t7u.countingOutUnloading
+				FROM tbg.ta_7_unloading AS t7u
+				INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+				INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+				INNER JOIN tbg.ta_7_employee AS t7e ON t7u.employeeUnloading = t7e.idEmployee
+				INNER JOIN tbg.ta_1_user AS t1u ON t7u.userUnloading = t1u.idUser
+				WHERE 1 = 1";
+				if(isset($aFiltros["startDateUnloading"]) && isset($aFiltros["endDateUnloading"])){
+					$e_SQL .= " AND t7u.dateUnloading BETWEEN '{$aFiltros["startDateUnloading"]}' AND '{$aFiltros["endDateUnloading"]}'\n";
+				}
+				if(!empty($aFiltros["employeeUnloading"])){
+					$e_SQL .= " AND t7u.employeeUnloading = '{$aFiltros["employeeUnloading"]}'\n";
+				}
+				if(!empty($aFiltros["userUnloading"])){
+					$e_SQL .= " AND t7u.userUnloading = '{$aFiltros["userUnloading"]}'\n";
+				}
+				$stm = $this->pdo->prepare($e_SQL);	
+				$stm->execute();
+				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
+				{
+					$ent = new Enti();
+					$ent->__SET('serialUnloading',$r->serialUnloading);
+					$ent->__SET('nameBase',$r->nameBase);
+					$ent->__SET('economicBus',$r->economicBus);
+					$ent->__SET('employee',$r->employee);
+					$ent->__SET('fullNameUser',$r->fullNameUser);
+					$ent->__SET('dateUnloading',$r->dateUnloading);
+					$ent->__SET('countingOutUnloading',$r->countingOutUnloading);
+					$result[] = $ent;
+				}
+				return $result;
+			} catch (Exception $e)
+			{die($e->getMessage());}
+		}
 
 		////////////  ***asleep***   ////////////////
 
 		public function AsleepAdd(Enti $data){
 			try {
-				$sql = "INSERT INTO ta_7_asleep (userAsleep, employeeAsleep,startdateAsleep,enddateAsleep,countingAsleep,commentsAsleep,dateAsleep,timeAsleep) 
+				$sql = "INSERT INTO tbg.ta_7_asleep (userAsleep, employeeAsleep,startdateAsleep,enddateAsleep,countingAsleep,commentsAsleep,dateAsleep,timeAsleep) 
 					VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 				$res=$this->pdo->prepare($sql)->execute(array(
 					$_SESSION["SidUser"],
@@ -2379,8 +2402,8 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_7_asleep AS t7s
-				INNER JOIN ta_7_employee As t7e
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_7_asleep AS t7s
+				INNER JOIN tbg.ta_7_employee As t7e
 				ON t7s.employeeAsleep=t7e.idEmployee
 				WHERE t7s.statusAsleep = 1 
 				ORDER BY t7s.startdateAsleep ASC ");	
@@ -2409,8 +2432,8 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_7_asleep AS t7s
-				INNER JOIN ta_7_employee As t7e
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_7_asleep AS t7s
+				INNER JOIN tbg.ta_7_employee As t7e
 				ON t7s.employeeAsleep=t7e.idEmployee
 				WHERE t7s.statusAsleep = 1 
 				AND employeeAsleep = ?
@@ -2475,8 +2498,8 @@ class Model
 					t7a.datePayAsleep,
 					t7a.timePayAsleep,
 					t7a.commentsAsleep
-				FROM ta_7_asleep AS t7a
-				LEFT JOIN ta_7_employee AS t7e ON t7a.employeeAsleep = t7e.idEmployee
+				FROM tbg.ta_7_asleep AS t7a
+				LEFT JOIN tbg.ta_7_employee AS t7e ON t7a.employeeAsleep = t7e.idEmployee
 				WHERE 1=1";
 				if(isset($aFiltros["startDateAsleep"]) && isset($aFiltros["endDateAsleep"])){
 					$e_SQL .= " AND t7a.dateAsleep BETWEEN '{$aFiltros["startDateAsleep"]}' AND '{$aFiltros["endDateAsleep"]}'\n";
@@ -2511,7 +2534,7 @@ class Model
 		public function BulletAdd(Enti $data){
 			//print_r($data);
 			try {
-				$sql = "INSERT INTO ta_7_Bullet (userBullet,employeeBullet,startdateBullet,enddateBullet,
+				$sql = "INSERT INTO tbg.ta_7_Bullet (userBullet,employeeBullet,startdateBullet,enddateBullet,
 				amountfeeEABullet,amountfeeEEBullet,amountfeeRABullet,
 				amountfeeREBullet,amountfeeSABullet,amountfeeSEBullet,
 				amountTBullet,commentsBullet,dateBullet,timeBullet) 
@@ -2543,8 +2566,8 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_7_bullet AS t7b
-				INNER JOIN ta_7_employee AS t7e
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_7_bullet AS t7b
+				INNER JOIN tbg.ta_7_employee AS t7e
 				ON t7b.employeeBullet=t7e.idEmployee
 				WHERE statusBullet = 1 ORDER BY startdateBullet ASC ");	
 				$stm->execute();
@@ -2578,8 +2601,8 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_7_bullet AS t7b
-				INNER JOIN ta_7_employee AS t7e
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_7_bullet AS t7b
+				INNER JOIN tbg.ta_7_employee AS t7e
 				ON t7b.employeeBullet=t7e.idEmployee
 				WHERE statusBullet = 1
 				AND  employeeBullet = ? 
@@ -2654,8 +2677,8 @@ class Model
 				  t7b.datePayBullet,
 				  t7b.timePayBullet,
 				  t7b.commentsBullet
-				FROM ta_7_bullet AS t7b
-				LEFT JOIN ta_7_employee AS t7e ON t7b.employeeBullet = t7e.idEmployee
+				FROM tbg.ta_7_bullet AS t7b
+				LEFT JOIN tbg.ta_7_employee AS t7e ON t7b.employeeBullet = t7e.idEmployee
 				WHERE 1=1";
 				if(isset($aFiltros["startDateBullet"]) && isset($aFiltros["endDateBullet"])){
 					$e_SQL .= " AND t7b.dateBullet BETWEEN '{$aFiltros["startDateBullet"]}' AND '{$aFiltros["endDateBullet"]}'\n";
@@ -2697,7 +2720,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ca_7_withholdingConcept ORDER BY nameWithholdingConcept ASC");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_7_withholdingConcept WHERE statusWithholdingConcept = '1' ORDER BY nameWithholdingConcept ASC");	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -2729,10 +2752,10 @@ class Model
 				$stm = $this->pdo->prepare("SELECT *, nameWithholdingConcept,
 				SUM(payImportWithholding) AS payImportWithholding,
 				SUM(balanceWithholding) AS balanceImportWithholding
-				FROM ta_7_withholding AS t7w
-				INNER JOIN ca_7_withholdingconcept AS c7w
+				FROM tbg.ta_7_withholding AS t7w
+				INNER JOIN tbg.ca_7_withholdingconcept AS c7w
 				ON t7w.withholdingConceptWithholding = c7w.idWithholdingConcept
-				INNER JOIN ta_7_employee AS t7e
+				INNER JOIN tbg.ta_7_employee AS t7e
 				ON t7w.employeeWithholding=t7e.idEmployee
 				WHERE t7w.employeewithholding = ? AND t7w.statusWithholding = 1
 				GROUP BY {$eGroup}
@@ -2761,7 +2784,7 @@ class Model
 		public function WithholdingAdd(Enti $data){
 			//print_r($data);
 			try {
-				$sql = "INSERT INTO ta_7_withholding (userWithholding, employeeWithholding,withholdingConceptWithholding,folioWithholding,
+				$sql = "INSERT INTO tbg.ta_7_withholding (userWithholding, employeeWithholding,withholdingConceptWithholding,folioWithholding,
 				dateAplicationWithholding,amountWithholding,balanceWithholding,termWithholding,payPorcentWithholding,payImportWithholding,
 				dateWithholding,timeWithholding) 
 					VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -2790,10 +2813,10 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_7_withholding AS t7w
-				INNER JOIN ca_7_withholdingconcept AS c7w
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_7_withholding AS t7w
+				INNER JOIN tbg.ca_7_withholdingconcept AS c7w
 				ON t7w.withholdingConceptWithholding = c7w.idWithholdingConcept
-				INNER JOIN ta_7_employee AS t7e
+				INNER JOIN tbg.ta_7_employee AS t7e
 				ON t7w.employeeWithholding=t7e.idEmployee
 				WHERE t7w.statusWithholding = 1 ORDER BY t7w.dateAplicationWithholding DESC");	
 				$stm->execute();
@@ -2828,6 +2851,7 @@ class Model
 				$result=array();
 				$e_SQL = "SELECT
 				  t7w.idWithholding,
+				  t7w.dateWithholding,
 				  CONCAT(t7e.namesEmployee, ' ', t7e.mlastnameEmployee, ' ', t7e.lastnameEmployee ) AS employee,
 				  t7w.folioWithholding,
 				  c7w.nameWithholdingConcept,
@@ -2836,9 +2860,9 @@ class Model
 				  t7w.datePayWithholding,
 				  t7w.timePayWithholding,
 				  IF(t7w.statusWithholding = 1,'Por cobrar','Pagado') AS statusWithholding
-				FROM ta_7_withholding AS t7w
-				LEFT JOIN ta_7_employee AS t7e ON t7w.employeeWithholding = t7e.idEmployee
-				LEFT JOIN ca_7_withholdingconcept AS c7w ON t7w.withholdingConceptWithholding = c7w.idWithholdingConcept
+				FROM tbg.ta_7_withholding AS t7w
+				LEFT JOIN tbg.ta_7_employee AS t7e ON t7w.employeeWithholding = t7e.idEmployee
+				LEFT JOIN tbg.ca_7_withholdingconcept AS c7w ON t7w.withholdingConceptWithholding = c7w.idWithholdingConcept
 				WHERE 1=1";
 				if(isset($aFiltros["startDateWithholding"]) && isset($aFiltros["endDateWithholding"])){
 					$e_SQL .= " AND t7w.dateWithholding BETWEEN '{$aFiltros["startDateWithholding"]}' AND '{$aFiltros["endDateWithholding"]}'\n";
@@ -2852,19 +2876,27 @@ class Model
 				if(!empty($aFiltros["statusWithholding"])){
 					$e_SQL .= " AND statusWithholding = '{$aFiltros["statusWithholding"]}'\n";
 				}
+				if(!empty($aFiltros["orderWithholding"]) && isset($aFiltros["typeOrderWithholding"])){
+					$e_SQL .= " ORDER BY {$aFiltros["orderWithholding"]} {$aFiltros["typeOrderWithholding"]}\n";
+				}
+				if(!empty($aFiltros["limit"])){
+					$e_SQL .= " LIMIT {$aFiltros["limit"]}\n";
+				}
 				//$e_SQL .= "GROUP BY t7w.employeeWithholding, t7w.withholdingConceptWithholding";
 				$stm = $this->pdo->prepare($e_SQL);	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
 					$ent = new Enti();
+					$ent->__SET('idWithholding',$r->idWithholding);
 					$ent->__SET('employee',$r->employee);
+					$ent->__SET('dateWithholding',$r->dateWithholding);
 					$ent->__SET('nameWithholdingConcept',$r->nameWithholdingConcept);
 					$ent->__SET('folioWithholding',$r->folioWithholding);
 					$ent->__SET('amountWithholding',$r->amountWithholding);
 					$ent->__SET('balanceWithholding',$r->balanceWithholding);
-					$ent->__SET('datePayWithholding',$r->dateWithholding);
-					$ent->__SET('timePayWithholding',$r->timeWithholding);
+					$ent->__SET('datePayWithholding',$r->datePayWithholding);
+					$ent->__SET('timePayWithholding',$r->timePayWithholding);
 					$ent->__SET('statusWithholding',$r->statusWithholding);
 					$result[] = $ent;
 				}
@@ -2879,7 +2911,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_7_asleep ORDER BY startdateAsleep ASC ");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_7_asleep ORDER BY startdateAsleep ASC ");	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -2912,7 +2944,7 @@ class Model
 				*/
 			//print_r($data);
 			try {
-				$sql = "INSERT INTO ta_7_settlement ( idUnloading, routeSettlement,userSettlement, amountTaxSettlement, amountIMSSSettlement, amountBulletSettlement, amountAsleepSettlement, amountFiaSettlement, amountSegSettlement, amountPreSettlement, amountInfSettlement, amountViaSettlement, amountCountingSettlement, amountEPSSettlement, amountRechargeSettlement, amountCardSettlement, amountTotalSettlement, amountPassageSettlement, guiaSettlement, turnSettlement, KMSettlement, consumptionSettlement, dieselSettlement, dieselLSettlement, whitholdingSettlement, salarySettlement, taxSettlement, perceptionSettlement, cashSettlement, commentsSettlement, dateSettlement, timeSettlement, amountDebtPaySettlement ) 
+				$sql = "INSERT INTO tbg.ta_7_settlement ( idUnloading, routeSettlement,userSettlement, amountTaxSettlement, amountIMSSSettlement, amountBulletSettlement, amountAsleepSettlement, amountFiaSettlement, amountSegSettlement, amountPreSettlement, amountInfSettlement, amountViaSettlement, amountCountingSettlement, amountEPSSettlement, amountRechargeSettlement, amountCardSettlement, amountTotalSettlement, amountPassageSettlement, guiaSettlement, turnSettlement, KMSettlement, consumptionSettlement, dieselSettlement, dieselLSettlement, whitholdingSettlement, salarySettlement, taxSettlement, perceptionSettlement, cashSettlement, commentsSettlement, dateSettlement, timeSettlement, amountDebtPaySettlement ) 
 					VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 				$res=$this->pdo->prepare($sql)->execute(array(
 					$data->__GET('idUnloading'),
@@ -3101,9 +3133,9 @@ class Model
 			try 
 			{
 				$e_SQL ="SELECT t7s.*, t1u.nameUser,nameRoute
-				FROM ta_7_settlement AS t7s
+				FROM tbg.ta_7_settlement AS t7s
 				JOIN tbg.ta_1_user AS t1u ON t7s.userSettlement = t1u.idUser
-				JOIN ta_1_route AS t1r ON t7s.routeSettlement = t1r.idRoute
+				JOIN tbg.ta_1_route AS t1r ON t7s.routeSettlement = t1r.idRoute
 				WHERE idSettlement = ?";
 				$result=array();
 				$stm = $this->pdo->prepare($e_SQL);	
@@ -3193,11 +3225,11 @@ class Model
 				  IF(t7s.statusSettlement = 1,'Por pagar','Pagado') AS statusSettlement,
 				  t7s.datePaySettlement,
 				  t7s.timePaySettlement
-				FROM ta_7_settlement AS t7s
-				LEFT JOIN  ta_7_unloading  AS t7u ON t7s.idUnloading = t7u.idUnloading
-				LEFT JOIN ta_7_employee AS t7e ON t7u.employeeUnloading = t7e.idEmployee
-				LEFT JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-				LEFT JOIN ta_1_route AS t1r ON t7s.routeSettlement = t1r.idRoute
+				FROM tbg.ta_7_settlement AS t7s
+				LEFT JOIN tbg. ta_7_unloading  AS t7u ON t7s.idUnloading = t7u.idUnloading
+				LEFT JOIN tbg.ta_7_employee AS t7e ON t7u.employeeUnloading = t7e.idEmployee
+				LEFT JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+				LEFT JOIN tbg.ta_1_route AS t1r ON t7s.routeSettlement = t1r.idRoute
 				WHERE 1 = 1";
 				if(isset($aFiltros["startDateSettlement"]) && isset($aFiltros["endDateSettlement"])){
 					$e_SQL .= " AND dateSettlement BETWEEN '{$aFiltros["startDateSettlement"]}' AND '{$aFiltros["endDateSettlement"]}'\n";
@@ -3263,10 +3295,10 @@ class Model
 				/*
 				if ($bu ==0 && $buu ==0 && $du ==0 ) {
 					$result=array();
-					$stm = $this->pdo->prepare("SELECT * FROM ta_7_unloading AS t7u
-										INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-										INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-										INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+					$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_7_unloading AS t7u
+										INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+										INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+										INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 										WHERE t7u.wU = ? AND
 										t7u.statusUnloading >= 4
 										ORDER BY dateUnloading,timeUnloading ASC ");
@@ -3312,10 +3344,10 @@ class Model
 				
 				if ($rad=='U') {
 					if ($bu != 0 && $buu == 0 && $du == 0) {
-						$e_SQL = "SELECT * FROM ta_7_unloading AS t7u
-											INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-											INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-											INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+						$e_SQL = "SELECT * FROM tbg.ta_7_unloading AS t7u
+											INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+											INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+											INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 											WHERE t7u.baseUnloading = ? AND 
 											t7u.wU = ? AND
 											t7u.wU = ? AND
@@ -3324,10 +3356,10 @@ class Model
 											ORDER BY dateUnloading,timeUnloading ASC ";
 					}
 					if ($bu != 0 && $buu != 0 && $du == 0) {
-						$e_SQL = "SELECT * FROM ta_7_unloading AS t7u
-											INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-											INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-											INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+						$e_SQL = "SELECT * FROM tbg.ta_7_unloading AS t7u
+											INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+											INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+											INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 											WHERE t7u.baseUnloading = ? AND 
 											t7u.busUnloading = ? AND
 											t7u.wU = ? AND
@@ -3336,10 +3368,10 @@ class Model
 											ORDER BY dateUnloading,timeUnloading ASC ";
 					}
 					if ($bu != 0 && $buu != 0 && $du != 0) {
-						$e_SQL = "SELECT * FROM ta_7_unloading AS t7u
-											INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-											INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-											INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+						$e_SQL = "SELECT * FROM tbg.ta_7_unloading AS t7u
+											INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+											INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+											INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 											WHERE t7u.baseUnloading = ? AND 
 											t7u.busUnloading = ? AND
 											t7u.employeeUnloading = ? AND
@@ -3348,10 +3380,10 @@ class Model
 											ORDER BY dateUnloading,timeUnloading ASC ";
 					}
 					if ($bu !=0 && $buu ==0 && $du !=0) {
-						$e_SQL = "SELECT * FROM ta_7_unloading AS t7u
-											INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-											INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-											INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+						$e_SQL = "SELECT * FROM tbg.ta_7_unloading AS t7u
+											INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+											INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+											INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 											WHERE t7u.baseUnloading = ? AND 
 											t7u.wU = ? AND
 											t7u.employeeUnloading = ? AND
@@ -3360,10 +3392,10 @@ class Model
 											ORDER BY dateUnloading,timeUnloading ASC ";
 					}
 					if ($bu ==0 && $buu !=0 && $du ==0) {
-						$e_SQL = "SELECT * FROM ta_7_unloading AS t7u
-											INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-											INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-											INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+						$e_SQL = "SELECT * FROM tbg.ta_7_unloading AS t7u
+											INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+											INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+											INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 											WHERE t7u.wU = ? AND 
 											t7u.busUnloading = ? AND
 											t7u.wU = ? AND
@@ -3372,10 +3404,10 @@ class Model
 											ORDER BY dateUnloading,timeUnloading ASC ";
 					}
 					if ($bu ==0 && $buu !=0 && $du !=0) {
-						$e_SQL = "SELECT * FROM ta_7_unloading AS t7u
-											INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-											INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-											INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+						$e_SQL = "SELECT * FROM tbg.ta_7_unloading AS t7u
+											INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+											INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+											INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 											WHERE t7u.wU = ? AND 
 											t7u.busUnloading = ? AND
 											t7u.employeeUnloading = ? AND
@@ -3384,10 +3416,10 @@ class Model
 											ORDER BY dateUnloading,timeUnloading ASC ";
 					}
 					if ($bu ==0 && $buu ==0 && $du !=0) {
-						$e_SQL = "SELECT * FROM ta_7_unloading AS t7u
-											INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-											INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-											INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+						$e_SQL = "SELECT * FROM tbg.ta_7_unloading AS t7u
+											INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+											INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+											INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 											WHERE t7u.wU = ? AND 
 											t7u.wU = ? AND
 											t7u.employeeUnloading = ? AND
@@ -3399,10 +3431,10 @@ class Model
 
 				if ($rad=='V') {
 					if ($bu != 0 && $buu == 0 && $du == 0) {
-						$e_SQL = "SELECT * FROM ta_7_unloading AS t7u
-											INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-											INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-											INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+						$e_SQL = "SELECT * FROM tbg.ta_7_unloading AS t7u
+											INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+											INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+											INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 											WHERE t7u.baseUnloading = ? AND 
 											t7u.wU = ? AND
 											t7u.wU = ? AND
@@ -3411,10 +3443,10 @@ class Model
 											ORDER BY dateUnloading,timeUnloading ASC ";
 					}
 					if ($bu != 0 && $buu != 0 && $du == 0) {
-						$e_SQL = "SELECT * FROM ta_7_unloading AS t7u
-											INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-											INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-											INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+						$e_SQL = "SELECT * FROM tbg.ta_7_unloading AS t7u
+											INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+											INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+											INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 											WHERE t7u.baseUnloading = ? AND 
 											t7u.busUnloading = ? AND
 											t7u.wU = ? AND
@@ -3423,10 +3455,10 @@ class Model
 											ORDER BY dateUnloading,timeUnloading ASC ";
 					}
 					if ($bu != 0 && $buu != 0 && $du != 0) {
-						$e_SQL = "SELECT * FROM ta_7_unloading AS t7u
-											INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-											INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-											INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+						$e_SQL = "SELECT * FROM tbg.ta_7_unloading AS t7u
+											INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+											INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+											INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 											WHERE t7u.baseUnloading = ? AND 
 											t7u.busUnloading = ? AND
 											t7u.employeeUnloading = ? AND
@@ -3435,10 +3467,10 @@ class Model
 											ORDER BY dateUnloading,timeUnloading ASC ";
 					}
 					if ($bu !=0 && $buu ==0 && $du !=0) {
-						$e_SQL = "SELECT * FROM ta_7_unloading AS t7u
-											INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-											INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-											INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+						$e_SQL = "SELECT * FROM tbg.ta_7_unloading AS t7u
+											INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+											INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+											INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 											WHERE t7u.baseUnloading = ? AND 
 											t7u.wU = ? AND
 											t7u.employeeUnloading = ? AND
@@ -3447,10 +3479,10 @@ class Model
 											ORDER BY dateUnloading,timeUnloading ASC ";
 					}
 					if ($bu ==0 && $buu !=0 && $du ==0) {
-						$e_SQL = "SELECT * FROM ta_7_unloading AS t7u
-											INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-											INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-											INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+						$e_SQL = "SELECT * FROM tbg.ta_7_unloading AS t7u
+											INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+											INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+											INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 											WHERE t7u.wU = ? AND 
 											t7u.busUnloading = ? AND
 											t7u.wU = ? AND
@@ -3459,10 +3491,10 @@ class Model
 											ORDER BY dateUnloading,timeUnloading ASC ";
 					}
 					if ($bu ==0 && $buu !=0 && $du !=0) {
-						$e_SQL = "SELECT * FROM ta_7_unloading AS t7u
-											INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-											INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-											INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+						$e_SQL = "SELECT * FROM tbg.ta_7_unloading AS t7u
+											INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+											INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+											INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 											WHERE t7u.wU = ? AND 
 											t7u.busUnloading = ? AND
 											t7u.employeeUnloading = ? AND
@@ -3471,10 +3503,10 @@ class Model
 											ORDER BY dateUnloading,timeUnloading ASC ";
 					}
 					if ($bu ==0 && $buu ==0 && $du !=0) {
-						$e_SQL = "SELECT * FROM ta_7_unloading AS t7u
-											INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-											INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-											INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+						$e_SQL = "SELECT * FROM tbg.ta_7_unloading AS t7u
+											INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+											INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+											INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 											WHERE t7u.wU = ? AND 
 											t7u.wU = ? AND
 											t7u.employeeUnloading = ? AND
@@ -3486,10 +3518,10 @@ class Model
 
 				if ($rad=='B') {
 					if ($bu != 0 && $buu == 0 && $du == 0) {
-						$e_SQL = "SELECT * FROM ta_7_unloading AS t7u
-											INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-											INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-											INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+						$e_SQL = "SELECT * FROM tbg.ta_7_unloading AS t7u
+											INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+											INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+											INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 											WHERE t7u.baseUnloading = ? AND 
 											t7u.wU = ? AND
 											t7u.wU = ? AND
@@ -3498,10 +3530,10 @@ class Model
 											ORDER BY dateUnloading,timeUnloading ASC ";
 					}
 					if ($bu != 0 && $buu != 0 && $du == 0) {
-						$e_SQL = "SELECT * FROM ta_7_unloading AS t7u
-											INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-											INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-											INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+						$e_SQL = "SELECT * FROM tbg.ta_7_unloading AS t7u
+											INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+											INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+											INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 											WHERE t7u.baseUnloading = ? AND 
 											t7u.busUnloading = ? AND
 											t7u.wU = ? AND
@@ -3510,10 +3542,10 @@ class Model
 											ORDER BY dateUnloading,timeUnloading ASC ";
 					}
 					if ($bu != 0 && $buu != 0 && $du != 0) {
-						$e_SQL = "SELECT * FROM ta_7_unloading AS t7u
-											INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-											INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-											INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+						$e_SQL = "SELECT * FROM tbg.ta_7_unloading AS t7u
+											INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+											INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+											INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 											WHERE t7u.baseUnloading = ? AND 
 											t7u.busUnloading = ? AND
 											t7u.employeeUnloading = ? AND
@@ -3522,10 +3554,10 @@ class Model
 											ORDER BY dateUnloading,timeUnloading ASC ";
 					}
 					if ($bu !=0 && $buu ==0 && $du !=0) {
-						$e_SQL = "SELECT * FROM ta_7_unloading AS t7u
-											INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-											INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-											INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+						$e_SQL = "SELECT * FROM tbg.ta_7_unloading AS t7u
+											INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+											INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+											INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 											WHERE t7u.baseUnloading = ? AND 
 											t7u.wU = ? AND
 											t7u.employeeUnloading = ? AND
@@ -3534,10 +3566,10 @@ class Model
 											ORDER BY dateUnloading,timeUnloading ASC ";
 					}
 					if ($bu ==0 && $buu !=0 && $du ==0) {
-						$$e_SQL = "SELECT * FROM ta_7_unloading AS t7u
-											INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-											INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-											INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+						$$e_SQL = "SELECT * FROM tbg.ta_7_unloading AS t7u
+											INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+											INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+											INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 											WHERE t7u.wU = ? AND 
 											t7u.busUnloading = ? AND
 											t7u.wU = ? AND
@@ -3546,10 +3578,10 @@ class Model
 											ORDER BY dateUnloading,timeUnloading ASC ";
 					}
 					if ($bu ==0 && $buu !=0 && $du !=0) {
-						$e_SQL = "SELECT * FROM ta_7_unloading AS t7u
-											INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-											INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-											INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+						$e_SQL = "SELECT * FROM tbg.ta_7_unloading AS t7u
+											INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+											INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+											INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 											WHERE t7u.wU = ? AND 
 											t7u.busUnloading = ? AND
 											t7u.employeeUnloading = ? AND
@@ -3558,10 +3590,10 @@ class Model
 											ORDER BY dateUnloading,timeUnloading ASC ";
 					}
 					if ($bu ==0 && $buu ==0 && $du !=0) {
-						$e_SQL = "SELECT * FROM ta_7_unloading AS t7u
-											INNER JOIN ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
-											INNER JOIN ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
-											INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+						$e_SQL = "SELECT * FROM tbg.ta_7_unloading AS t7u
+											INNER JOIN tbg.ca_1_base AS c1b ON t7u.baseUnloading = c1b.idBase
+											INNER JOIN tbg.ta_1_bus AS t1b ON t7u.busUnloading = t1b.idBus
+											INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 											WHERE t7u.wU = ? AND 
 											t7u.wU = ? AND
 											t7u.employeeUnloading = ? AND
@@ -3573,10 +3605,10 @@ class Model
 				*/
 				
 				$e_SQL = "SELECT *
-				FROM ta_7_unloading      AS t7u
-				INNER JOIN ca_1_base     AS c1b ON t7u.baseUnloading     = c1b.idBase
-				INNER JOIN ta_1_bus      AS t1b ON t7u.busUnloading      = t1b.idBus
-				INNER JOIN ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee\n";
+				FROM tbg.ta_7_unloading      AS t7u
+				INNER JOIN tbg.ca_1_base     AS c1b ON t7u.baseUnloading     = c1b.idBase
+				INNER JOIN tbg.ta_1_bus      AS t1b ON t7u.busUnloading      = t1b.idBus
+				INNER JOIN tbg.ta_7_Employee AS t1d ON t7u.employeeUnloading = t1d.idEmployee\n";
 				switch ($rad) {
 					case 'U':
 						$e_SQL .= "WHERE t7u.dateUnloading >= ? AND t7u.dateUnloading <= ?\n";
@@ -3648,8 +3680,8 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_7_ticket AS tt
-											INNER JOIN ca_7_concept AS cc ON tt.conceptTicket=cc.idConcept
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_7_ticket AS tt
+											INNER JOIN tbg.ca_7_concept AS cc ON tt.conceptTicket=cc.idConcept
 											WHERE tt.statusTicket = 1 AND unloadingTicket = ?");	
 				$stm->execute(array($idUnloading));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
@@ -3677,7 +3709,7 @@ class Model
 		public function TicketAdd(Enti $data){
 			//print_r($data);
 			try {
-				$sql = "INSERT INTO ta_7_ticket (userTicket,unloadingTicket,baseTicket,
+				$sql = "INSERT INTO tbg.ta_7_ticket (userTicket,unloadingTicket,baseTicket,
 				busTicket,employeeTicket,conceptTicket,quantityTicket,totalTicket) 
 					VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 				$res=$this->pdo->prepare($sql)->execute(array(
@@ -3771,7 +3803,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_7_ticket WHERE statusTicket = 1 ");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_7_ticket WHERE statusTicket = 1 ");	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -3800,7 +3832,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ca_7_concept ORDER BY codeConcept ASC ");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_7_concept ORDER BY codeConcept ASC ");	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -3836,12 +3868,12 @@ class Model
 					nameRoute,
 					perceptionSettlement,
 					cashSettlement
-				FROM ta_7_settlement      AS t7s
-				INNER JOIN ta_1_route     AS t1r ON t7s.routeSettlement   = t1r.idRoute
-				INNER JOIN ta_7_unloading AS t7u ON t7s.idUnloading       = t7u.idUnloading
-				INNER JOIN ca_1_base      AS c1b ON t7u.baseUnloading     = c1b.idBase
-				INNER JOIN ta_1_bus       AS t1b ON t7u.busUnloading      = t1b.idBus
-				INNER JOIN ta_7_Employee  AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+				FROM tbg.ta_7_settlement      AS t7s
+				INNER JOIN tbg.ta_1_route     AS t1r ON t7s.routeSettlement   = t1r.idRoute
+				INNER JOIN tbg.ta_7_unloading AS t7u ON t7s.idUnloading       = t7u.idUnloading
+				INNER JOIN tbg.ca_1_base      AS c1b ON t7u.baseUnloading     = c1b.idBase
+				INNER JOIN tbg.ta_1_bus       AS t1b ON t7u.busUnloading      = t1b.idBus
+				INNER JOIN tbg.ta_7_Employee  AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 				WHERE t7s.statusSettlement = '2'
 				AND datePaySettlement = ?
 				AND cutSettlement IS NULL";
@@ -3870,7 +3902,7 @@ class Model
 		}
 		public function cutAdd(Enti $data){
 			try {
-				$sql = "INSERT INTO ta_7_cut (userCut, amountCut, amountCashCut, dateCut, timeCut, statusCut) 
+				$sql = "INSERT INTO tbg.ta_7_cut (userCut, amountCut, amountCashCut, dateCut, timeCut, statusCut) 
 					VALUES (?, ?, ?, ?, ?, ?)";
 				$res=$this->pdo->prepare($sql)->execute(array(
 					$data->__GET('userCut'),
@@ -3907,12 +3939,12 @@ class Model
 				debtSettlement,
 				paymentsDebtSettlement,
 				datePayDebtSettlement
-			FROM ta_7_settlement      AS t7s
-			INNER JOIN ta_1_route     AS t1r ON t7s.routeSettlement   = t1r.idRoute
-			INNER JOIN ta_7_unloading AS t7u ON t7s.idUnloading       = t7u.idUnloading
-			INNER JOIN ca_1_base      AS c1b ON t7u.baseUnloading     = c1b.idBase
-			INNER JOIN ta_1_bus       AS t1b ON t7u.busUnloading      = t1b.idBus
-			INNER JOIN ta_7_Employee  AS t1d ON t7u.employeeUnloading = t1d.idEmployee
+			FROM tbg.ta_7_settlement      AS t7s
+			INNER JOIN tbg.ta_1_route     AS t1r ON t7s.routeSettlement   = t1r.idRoute
+			INNER JOIN tbg.ta_7_unloading AS t7u ON t7s.idUnloading       = t7u.idUnloading
+			INNER JOIN tbg.ca_1_base      AS c1b ON t7u.baseUnloading     = c1b.idBase
+			INNER JOIN tbg.ta_1_bus       AS t1b ON t7u.busUnloading      = t1b.idBus
+			INNER JOIN tbg.ta_7_Employee  AS t1d ON t7u.employeeUnloading = t1d.idEmployee
 			WHERE cutSettlement = ?";
 			try {
 				$stm = $this->pdo->prepare($eSQL);
@@ -3954,7 +3986,7 @@ class Model
 			  amountCashCut,
 			  dateCut,
 			  timeCut
-			FROM ta_7_cut AS t7c
+			FROM tbg.ta_7_cut AS t7c
 			INNER JOIN tbg.ta_1_user AS t1u ON t7c.userCut = t1u.idUser
 			WHERE idCut =  ?";
 			try {
@@ -3989,7 +4021,7 @@ class Model
 			  amountCashCut,
 			  dateCut,
 			  timeCut
-			FROM ta_7_cut AS t7c
+			FROM tbg.ta_7_cut AS t7c
 			INNER JOIN tbg.ta_1_user AS t1u ON t7c.userCut = t1u.idUser
 			WHERE statusCut = '1'";
 			try {
@@ -4018,7 +4050,7 @@ class Model
 
 		public function CredentialAdd(Enti $data){
 			try {
-				$sql = "INSERT INTO ta_1_credentials (idCredential, nameCredential, descriptionCredential) VALUES (?, ?, ?)";
+				$sql = "INSERT INTO tbg.ta_1_credentials (idCredential, nameCredential, descriptionCredential) VALUES (?, ?, ?)";
 				$res=$this->pdo->prepare($sql)->execute(array(
 					$data->__GET('idCredential'),
 					$data->__GET('nameCredential'),
@@ -4087,7 +4119,7 @@ class Model
 		public function CredentialsList(){
 			try {
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_1_credentials WHERE statusCredential = '1'");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_1_credentials WHERE statusCredential = '1'");	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -4107,7 +4139,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ta_1_credentials WHERE idCredential = ? ");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ta_1_credentials WHERE idCredential = ? ");	
 				$stm->execute(array($idCredential));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -4127,7 +4159,7 @@ class Model
 
 		public function MenuAdd(Enti $data){
 			try {
-				$sql = "INSERT INTO ca_1_menus (nameMenu, typeMenu, nodeMenu, orderMenu, iconMenu, credentialMenu, sheetMenu) VALUES (?, ?, ?, ?, ?, ?, ?)";
+				$sql = "INSERT INTO tbg.ca_1_menus (nameMenu, typeMenu, nodeMenu, orderMenu, iconMenu, credentialMenu, sheetMenu) VALUES (?, ?, ?, ?, ?, ?, ?)";
 				$res=$this->pdo->prepare($sql)->execute(array(
 					$data->__GET('nameMenu'),
 					$data->__GET('typeMenu'),
@@ -4149,7 +4181,7 @@ class Model
 		public function MenuListCategory(){
 			try {
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ca_1_menus WHERE statusMenu = '1' AND typeMenu = 'categoria'");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_1_menus WHERE statusMenu = '1' AND typeMenu = 'categoria'");	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -4173,7 +4205,7 @@ class Model
 		public function MenuListU($idMenu){
 			try {
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ca_1_menus WHERE idMenu = ? ");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_1_menus WHERE idMenu = ? ");	
 				$stm->execute(array($idMenu));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -4274,7 +4306,7 @@ class Model
 				  namePosition,
 				  credentialPosition
 				FROM tbg.ta_1_user
-				JOIN tgb.ca_7_position ON positionUser = idPosition
+				JOIN tbg.ca_7_position ON positionUser = idPosition
 				WHERE statusUser = '1' AND idUSer  = ?");	
 				$stm->execute(array($idUser,));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
@@ -4290,8 +4322,8 @@ class Model
 				}
 				$aCrentialsPosition = json_decode($eCredentialPosition,true);
 				$eNomCredential = implode('","',$aCrentialsPosition);
-				$e_SQL = "SELECT nameCredential FROM ta_1_credentials WHERE  statusCredential = '1' AND nameCredential IN (\"{$eNomCredential}\")";
-				$stm = $this->pdo->prepare("SELECT nameCredential FROM ta_1_credentials WHERE  statusCredential = '1' AND nameCredential IN (\"{$eNomCredential}\")");	
+				$e_SQL = "SELECT nameCredential FROM tbg.ta_1_credentials WHERE  statusCredential = '1' AND nameCredential IN (\"{$eNomCredential}\")";
+				$stm = $this->pdo->prepare("SELECT nameCredential FROM tbg.ta_1_credentials WHERE  statusCredential = '1' AND nameCredential IN (\"{$eNomCredential}\")");	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -4310,7 +4342,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ca_1_menus WHERE statusMenu = '1' AND nodeMenu = {$idNode} ORDER BY orderMenu ASC");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_1_menus WHERE statusMenu = '1' AND nodeMenu = {$idNode} ORDER BY orderMenu ASC");	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -4348,7 +4380,7 @@ class Model
 				  dateDriver,
 				  timeDriver,
 				  statusDriver
-				FROM ta_1_driver WHERE statusDriver = '1'");	
+				FROM tbg.ta_1_driver WHERE statusDriver = '1'");	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -4381,7 +4413,7 @@ class Model
 				  dateDriver,
 				  timeDriver,
 				  statusDriver
-				FROM ta_1_driver WHERE statusDriver = 1 AND idDriver = ? ");	
+				FROM tbg.ta_1_driver WHERE statusDriver = 1 AND idDriver = ? ");	
 				$stm->execute(array($idDriver));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -4403,7 +4435,7 @@ class Model
 		}
 		public function DriverAdd(Enti $data){
 			try {
-				$sql = "INSERT INTO ta_1_driver (nameDriver, ageDriver, licenseDriver, telDriver, dateDriver, timeDriver) VALUES (?, ?, ?, ?, ?, ?)";
+				$sql = "INSERT INTO tbg.ta_1_driver (nameDriver, ageDriver, licenseDriver, telDriver, dateDriver, timeDriver) VALUES (?, ?, ?, ?, ?, ?)";
 				$res=$this->pdo->prepare($sql)->execute(array(
 					$data->__GET('nameDriver'),
 					$data->__GET('ageDriver'),
@@ -4489,12 +4521,12 @@ class Model
 			$aNewValues = array_values($aData);
 			$aNewKeys = array_keys($aData);
 			$eColumns = implode(',',$aNewKeys);
-			$eSQLSelect= "SELECT {$eColumns} FROM {$tabla} WHERE {$where}";
+			$eSQLSelect= "SELECT {$eColumns} FROM tbg.{$tabla} WHERE {$where}";
 			$aOldData = (array) $this->currentData($eSQLSelect);
 			$aAuxOldData = array_diff_assoc($aOldData, $aData); // Registros Anteriores
 		    $aAuxNewData = array_diff_assoc($aData, $aOldData); // Registros Nuevos
 			try {
-				$sql = "INSERT INTO ta_1_backupupdate (tableBackup, modBackup, idRecordBackup, oldRecordsBackup, newRecordsBackup, userBackup, dateTimeBackup) VALUES (?, ?, ?, ?, ?, ?, ?)";
+				$sql = "INSERT INTO tbg.ta_1_backupupdate (tableBackup, modBackup, idRecordBackup, oldRecordsBackup, newRecordsBackup, userBackup, dateTimeBackup) VALUES (?, ?, ?, ?, ?, ?, ?)";
 				$res=$this->pdo->prepare($sql)->execute(array(
 					$tabla,
 					$mod,
@@ -4519,7 +4551,7 @@ class Model
 		public function SetttlementWithholdigAdd(Enti $data){
 			//print_r($data);
 			try {
-				$sql = "INSERT INTO ta_7_settlement_withholding (settlementWithholdign, amountSettlementWithholdign, withholdignSettlementWithholdign, dateSettlementWithholdign, timeSettlementWithholdign) 
+				$sql = "INSERT INTO tbg.ta_7_settlement_withholding (settlementWithholdign, amountSettlementWithholdign, withholdignSettlementWithholdign, dateSettlementWithholdign, timeSettlementWithholdign) 
 					VALUES ( ?, ?, ?, ?, ?)";
 				$res=$this->pdo->prepare($sql)->execute(array(
 					$data->__GET('settlementWithholdign'),
@@ -4544,9 +4576,9 @@ class Model
 				  t7w.amountWithholding,
 				  t7sw.amountSettlementWithholdign,
 				  t7w.balanceWithholding
-				FROM ta_7_settlement_withholding AS t7sw
-				LEFT JOIN ta_7_withholding AS t7w ON t7sw.withholdignSettlementWithholdign = t7w.idWithholding
-				LEFT JOIN ca_7_withholdingconcept AS c7w ON t7w.withholdingConceptWithholding = c7w.idWithholdingConcept
+				FROM tbg.ta_7_settlement_withholding AS t7sw
+				LEFT JOIN tbg.ta_7_withholding AS t7w ON t7sw.withholdignSettlementWithholdign = t7w.idWithholding
+				LEFT JOIN tbg.ca_7_withholdingconcept AS c7w ON t7w.withholdingConceptWithholding = c7w.idWithholdingConcept
 				WHERE t7w.statusWithholding = 1
 				AND t7sw.settlementWithholdign = ?");	
 				$stm->execute(array($idSettlement));
@@ -4573,7 +4605,7 @@ class Model
 				$stm = $this->pdo->prepare("SELECT
 				  nameConfig,
 				  valueConfig
-				FROM ca_7_general_config
+				FROM tbg.ca_7_general_config
 				WHERE	statusConfig = '1'");	
 				$stm->execute();
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
@@ -4589,7 +4621,7 @@ class Model
 		}
 		public function GeneralConfigAdd(Enti $data){
 			try {
-				$sql = "INSERT INTO ca_7_general_config (idConfig, nameConfig, valueConfig, dateAddConfig) VALUES (?, ?, ?, ?)";
+				$sql = "INSERT INTO tbg.ca_7_general_config (idConfig, nameConfig, valueConfig, dateAddConfig) VALUES (?, ?, ?, ?)";
 				$res=$this->pdo->prepare($sql)->execute(array(
 					$data->__GET('idConfig'),
 					$data->__GET('nameConfig'),
@@ -4645,7 +4677,7 @@ class Model
 			try 
 			{
 				$result=array();
-				$stm = $this->pdo->prepare("SELECT * FROM ca_7_general_config WHERE idConfig = ? ");	
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_7_general_config WHERE idConfig = ? ");	
 				$stm->execute(array($idConfig));
 				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
 				{
@@ -4660,5 +4692,436 @@ class Model
 			} catch (Exception $e)
 			{die($e->getMessage());}
 		}
+
+		//////////// *** WithholdingConcept *** ////////////////
+
+		public function WithholdingConceptAdd(Enti $data){
+			try {
+				$sql = "INSERT INTO tbg.ca_7_withholdingconcept (nameWithholdingConcept, amountWithholdingConcept, termWeekWithholdingConcept ) VALUES (?, ?, ?)";
+				$res=$this->pdo->prepare($sql)->execute(array(
+					$data->__GET('nameWithholdingConcept'),
+					$data->__GET('amountWithholdingConcept'),
+					$data->__GET('termWeekWithholdingConcept')
+					)
+				);
+				$idWithholdingConcept = $this->pdo->lastInsertId();
+				return $idWithholdingConcept;
+			} catch (Exception $e) {
+				die($e->getMessage());
+			}
+			return $res;
+		}
+		public function WithholdingConceptUpdate(Enti $data){
+			try {
+				$aNewData = array(
+					'nameWithholdingConcept' => $data->__GET('nameWithholdingConcept'),
+					'amountWithholdingConcept' => $data->__GET('amountWithholdingConcept'),
+					'termWeekWithholdingConcept' => $data->__GET('termWeekWithholdingConcept'),
+					'idWithholdingConcept' => $data->__GET('idWithholdingConcept')
+				);
+				$aNewValues = array_values($aNewData);
+				$this->backupUpdate($aNewData,'ca_7_withholdingconcept','idWithholdingConcept = '.$data->__GET('idWithholdingConcept'), 'Retenciones');
+				$sql = "UPDATE ca_7_withholdingconcept SET
+							nameWithholdingConcept = ?,
+							amountWithholdingConcept = ?,
+							termWeekWithholdingConcept = ?
+						WHERE idWithholdingConcept = ?";
+				$res=$this->pdo->prepare($sql)->execute($aNewValues);
+			} catch (Exception $e) {
+				die($e->getMessage());
+			}
+			return $res;
+		}
+		public function WithholdingConceptInactive(Enti $data){
+			try {
+				$aNewData = array(
+					'statusWithholdingConcept' => $data->__GET('statusWithholdingConcept'),
+					'idWithholdingConcept' => $data->__GET('idWithholdingConcept')
+				);
+				$aNewValues = array_values($aNewData);
+				$this->backupUpdate($aNewData,'ca_7_withholdingconcept','idWithholdingConcept = '.$data->__GET('idWithholdingConcept'), 'Retenciones');
+				$sql = "UPDATE ca_7_withholdingconcept SET
+							statusWithholdingConcept = ?
+						WHERE idWithholdingConcept = ?";
+				$res = $this->pdo->prepare($sql)->execute($aNewValues);
+			} catch (Exception $e) {
+				die($e->getMessage());
+			}
+			return $res;
+		}
+		public function WithholdingConceptListU($idWithholdingConcept){
+			try 
+			{
+				$result=array();
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_7_withholdingconcept WHERE idWithholdingConcept = ? ");	
+				$stm->execute(array($idWithholdingConcept));
+				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
+				{
+					$ent = new Enti();
+					$ent->__SET('idWithholdingConcept', $r->idWithholdingConcept);
+					$ent->__SET('nameWithholdingConcept', $r->nameWithholdingConcept);
+					$ent->__SET('amountWithholdingConcept', $r->amountWithholdingConcept);
+					$ent->__SET('termWeekWithholdingConcept', $r->termWeekWithholdingConcept);
+					$ent->__SET('statusWithholdingConcept', $r->statusWithholdingConcept);
+					$result[] = $ent;
+				}
+				return $result;
+			} catch (Exception $e)
+			{die($e->getMessage());}
+		}
+
+		//////////// *** Configbase *** ////////////////
+
+		public function BaseAdd(Enti $data){
+			try {
+				$sql = "INSERT INTO tbg.ca_1_base (nameBase, prefixBase ) VALUES (?, ?)";
+				$res=$this->pdo->prepare($sql)->execute(array(
+					$data->__GET('nameBase'),
+					$data->__GET('prefixBase')
+					)
+				);
+				$idBase = $this->pdo->lastInsertId();
+				return $idBase;
+			} catch (Exception $e) {
+				die($e->getMessage());
+			}
+			return $res;
+		}
+		public function BaseUpdate(Enti $data){
+			try {
+				$aNewData = array(
+					'nameBase' => $data->__GET('nameBase'),
+					'prefixBase' => $data->__GET('prefixBase'),
+					'idBase' => $data->__GET('idBase')
+				);
+				$aNewValues = array_values($aNewData);
+				$this->backupUpdate($aNewData,'ca_1_base','idBase = '.$data->__GET('idBase'), 'Base');
+				$sql = "UPDATE ca_1_base SET
+							nameBase = ?,
+							prefixBase = ?
+						WHERE idBase = ?";
+				$res=$this->pdo->prepare($sql)->execute($aNewValues);
+			} catch (Exception $e) {
+				die($e->getMessage());
+			}
+			return $res;
+		}
+		public function BaseInactive(Enti $data){
+			try {
+				$aNewData = array(
+					'statusBase' => $data->__GET('statusBase'),
+					'idBase' => $data->__GET('idBase')
+				);
+				$aNewValues = array_values($aNewData);
+				$this->backupUpdate($aNewData,'ca_1_base','idBase = '.$data->__GET('idBase'), 'Base');
+				$sql = "UPDATE ca_1_base SET
+							statusBase = ?
+						WHERE idBase = ?";
+				$res = $this->pdo->prepare($sql)->execute($aNewValues);
+			} catch (Exception $e) {
+				die($e->getMessage());
+			}
+			return $res;
+		}
+		public function BaseListU($idWithholdingConcept){
+			try 
+			{
+				$result=array();
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_1_base WHERE idBase = ? ");	
+				$stm->execute(array($idWithholdingConcept));
+				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
+				{
+					$ent = new Enti();
+					$ent->__SET('idBase', $r->idBase);
+					$ent->__SET('nameBase', $r->nameBase);
+					$ent->__SET('prefixBase', $r->prefixBase);
+					$ent->__SET('statusBase', $r->statusBase);
+					$result[] = $ent;
+				}
+				return $result;
+			} catch (Exception $e)
+			{die($e->getMessage());}
+		}
+
+		//////////// *** ConceptTicketing *** ////////////////
+
+		public function ConceptTicketingAdd(Enti $data){
+			try {
+				$sql = "INSERT INTO tbg.ca_7_concept (codeConcept, nameConcept, comissionConcept, valueConcept ) VALUES (?, ?, ?, ?)";
+				$res=$this->pdo->prepare($sql)->execute(array(
+					$data->__GET('codeConcept'),
+					$data->__GET('nameConcept'),
+					$data->__GET('comissionConcept'),
+					$data->__GET('valueConcept')
+					)
+				);
+				$idConcept = $this->pdo->lastInsertId();
+				return $idConcept;
+			} catch (Exception $e) {
+				die($e->getMessage());
+			}
+			return $res;
+		}
+		public function ConceptTicketingUpdate(Enti $data){
+			try {
+				$aNewData = array(
+					'codeConcept' => $data->__GET('codeConcept'),
+					'nameConcept' => $data->__GET('nameConcept'),
+					'comissionConcept' => $data->__GET('comissionConcept'),
+					'valueConcept' => $data->__GET('valueConcept'),
+					'idConcept' => $data->__GET('idConcept')
+				);
+				$aNewValues = array_values($aNewData);
+				$this->backupUpdate($aNewData,'ca_7_concept','idConcept = '.$data->__GET('idConcept'), 'Boletos');
+				$sql = "UPDATE ca_7_concept SET
+							codeConcept = ?,
+							nameConcept = ?,
+							comissionConcept = ?,
+							valueConcept = ?
+						WHERE idConcept = ?";
+				$res=$this->pdo->prepare($sql)->execute($aNewValues);
+			} catch (Exception $e) {
+				die($e->getMessage());
+			}
+			return $res;
+		}
+		public function ConceptTicketingInactive(Enti $data){
+			try {
+				$aNewData = array(
+					'statusConcept' => $data->__GET('statusConcept'),
+					'idConcept' => $data->__GET('idConcept')
+				);
+				$aNewValues = array_values($aNewData);
+				$this->backupUpdate($aNewData,'ca_7_concept','idConcept = '.$data->__GET('idConcept'), 'Boletos');
+				$sql = "UPDATE ca_7_concept SET
+							statusConcept = ?
+						WHERE idConcept = ?";
+				$res = $this->pdo->prepare($sql)->execute($aNewValues);
+			} catch (Exception $e) {
+				die($e->getMessage());
+			}
+			return $res;
+		}
+		public function ConceptTicketingListU($idWithholdingConcept){
+			try 
+			{
+				$result=array();
+				$stm = $this->pdo->prepare("SELECT * FROM tbg.ca_7_concept WHERE idConcept = ? ");	
+				$stm->execute(array($idWithholdingConcept));
+				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
+				{
+					$ent = new Enti();
+					$ent->__SET('idConcept', $r->idConcept);
+					$ent->__SET('nameConcept', $r->nameConcept);
+					$ent->__SET('codeConcept', $r->codeConcept);
+					$ent->__SET('comissionConcept', $r->comissionConcept);
+					$ent->__SET('valueConcept', $r->valueConcept);
+					$ent->__SET('statusConcept', $r->statusConcept);
+					$result[] = $ent;
+				}
+				return $result;
+			} catch (Exception $e)
+			{die($e->getMessage());}
+		}
+
+		//////////// *** Session *** ////////////////
+
+		public function sessionUserEnd(Enti $data){
+			try {
+				$sql = "UPDATE ta_1_sessions SET
+					dateEndSession = ?,
+					statusSession = ?
+				WHERE idUser = ?
+				AND statusSession > 0";
+				
+				$aValues = array($data->__GET('dateEndSession'));
+				$aValues[] = $data->__GET('statusSession');
+				$aValues[] = $data->__GET('idUser');
+				$res=$this->pdo->prepare($sql)->execute($aValues);
+			} catch (Exception $e) {
+				die($e->getMessage());
+			}
+			return $res;
+		}
+
+		//////////// *** Kilometers *** ////////////////
+
+		public function KilometersReport($aFiltros){
+			try 
+			{
+				$result=array();
+				$e_SQL = "SELECT
+					t7u.busUnloading,
+					CONCAT(t1b.codeBus,'->',t1b.economicBus) AS bus,
+					t7u.employeeUnloading,
+					t7e.namesEmployee,
+					t7e.lastnameEmployee,
+					t7e.mlastnameEmployee,
+					t7u.serialUnloading,
+					t7s.dateSettlement,
+					t7s.routeSettlement,
+					t1r.nameRoute,
+					t7s.turnSettlement,
+					t7s.KMSettlement,
+					t7s.consumptionSettlement,
+					t7s.dieselSettlement,
+					t7s.dieselLSettlement
+				FROM tbg.ta_7_settlement      AS t7s
+				INNER JOIN tbg.ta_7_unloading AS t7u ON t7s.idUnloading       = t7u.idUnloading
+				JOIN tbg.ta_1_bus             AS t1b ON t7u.busUnloading      = t1b.idBus
+				JOIN tbg.ta_7_employee        AS t7e ON t7u.employeeUnloading = t7e.idEmployee
+				JOIN tbg.ta_1_route           AS t1r ON t7s.routeSettlement   = t1r.idRoute
+				WHERE 1 = 1";
+				if(isset($aFiltros["startDateUnloading"]) && isset($aFiltros["endDateUnloading"])){
+					$e_SQL .= " AND t7s.dateSettlement BETWEEN '{$aFiltros["startDateUnloading"]}' AND '{$aFiltros["endDateUnloading"]}'\n";
+				}
+				if(!empty($aFiltros["busUnloading"])){
+					$e_SQL .= " AND t7u.busUnloading = '{$aFiltros["busUnloading"]}'\n";
+				}
+				if(!empty($aFiltros["routeSettlement"])){
+					$e_SQL .= " AND t7s.routeSettlement = '{$aFiltros["routeSettlement"]}'\n";
+				}
+				if(!empty($aFiltros["employeeUnloading"])){
+					$e_SQL .= " AND t7u.employeeUnloading = '{$aFiltros["employeeUnloading"]}'\n";
+				}
+				$stm = $this->pdo->prepare($e_SQL);	
+				$stm->execute();
+				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
+				{
+					$ent = new Enti();
+					$ent->__SET('busUnloading',$r->busUnloading);
+					$ent->__SET('bus',$r->bus);
+					$ent->__SET('employeeUnloading',$r->employeeUnloading);
+					$ent->__SET('namesEmployee',$r->namesEmployee);
+					$ent->__SET('lastnameEmployee',$r->lastnameEmployee);
+					$ent->__SET('mlastnameEmployee',$r->mlastnameEmployee);
+					$ent->__SET('serialUnloading',$r->serialUnloading);
+					$ent->__SET('dateSettlement',$r->dateSettlement);
+					$ent->__SET('routeSettlement',$r->routeSettlement);
+					$ent->__SET('nameRoute',$r->nameRoute);
+					$ent->__SET('turnSettlement',$r->turnSettlement);
+					$ent->__SET('KMSettlement',$r->KMSettlement);
+					$ent->__SET('consumptionSettlement',$r->consumptionSettlement);
+					$ent->__SET('dieselSettlement',$r->dieselSettlement);
+					$ent->__SET('dieselLSettlement',$r->dieselLSettlement);
+					$result[] = $ent;
+				}
+				return $result;
+			} catch (Exception $e)
+			{die($e->getMessage());}
+		}
+
+		//////////// *** VacationEmployee *** ////////////////
+
+		public function EmployeeVacationData($idE){
+			try {
+				$result=array();
+				/*
+				$e_SQL = "SELECT
+					idEmployee,
+					dateadmissionEmployee,
+					(SELECT SUM(numDayVacationEmployee) FROM tbg.ta_7_vacation_employee WHERE idEmployeeVacation = idEmployee AND statusVacationEmployee = '1') AS dayUsed
+				FROM tbg.ta_7_employee AS t7e
+				WHERE idEmployee = ?";
+				*/
+				$e_SQL = "SELECT
+				    idEmployee,
+				    dateadmissionEmployee,
+				    (SELECT SUM(numDayVacationEmployee)
+				     FROM tbg.ta_7_vacation_employee
+				     WHERE idEmployeeVacation = idEmployee
+				       AND statusVacationEmployee = '1'
+				       AND dateEndVacationEmployee BETWEEN 
+				            CONCAT(
+				               IF(
+				                   CONCAT(YEAR(CURDATE()), '-', LPAD(MONTH(dateadmissionEmployee), 2, '0'), '-', LPAD(DAY(dateadmissionEmployee), 2, '0')) >= CURDATE(), 
+				                   YEAR(CURDATE()) -1, YEAR(CURDATE())
+				               ),
+				               '-',
+				               LPAD(MONTH(dateadmissionEmployee), 2, '0'),
+				               '-',
+				               LPAD(DAY(dateadmissionEmployee), 2, '0')
+				           )
+				           AND CONCAT(
+				               IF(
+				                   CONCAT(YEAR(CURDATE()), '-', LPAD(MONTH(dateadmissionEmployee), 2, '0'), '-', LPAD(DAY(dateadmissionEmployee), 2, '0')) >= CURDATE(), 
+				                   YEAR(CURDATE()), YEAR(CURDATE())+1
+				               ),
+				               '-',
+				               LPAD(MONTH(dateadmissionEmployee), 2, '0'),
+				               '-',
+				               LPAD(DAY(dateadmissionEmployee), 2, '0')
+				           )
+				    ) AS dayUsed
+				FROM tbg.ta_7_employee AS t7e
+				WHERE idEmployee = ?";
+				$stm = $this->pdo->prepare($e_SQL);	
+				$stm->execute(array($idE));
+				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r){
+					$ent = new Enti();
+					$ent->__SET('idEmployee', $r->idEmployee);
+					$ent->__SET('dateadmissionEmployee', $r->dateadmissionEmployee);
+					$ent->__SET('dayUsed', $r->dayUsed);
+					$result[] = $ent;
+				}
+				return $result;
+			} catch (Exception $e)
+			{die($e->getMessage());}
+		}
+		public function VacationLaw($year){
+			try {
+				$result=array();
+				$stm = $this->pdo->prepare("SELECT dayVacation
+				FROM tbg.ca_7_vacation_law
+				WHERE statusVacation = '1'
+				AND yearVacation = ?");	
+				$stm->execute(array($year));
+				foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r){
+					$ent = new Enti();
+					$ent->__SET('dayVacation', $r->dayVacation);
+					$result[] = $ent;
+				}
+				return $result;
+			} catch (Exception $e)
+			{die($e->getMessage());}
+		}
+		public function VacationAdd(Enti $data){
+			try {
+				date_default_timezone_set('America/Mexico_City');
+				$sql = "INSERT INTO tbg.ta_7_vacation_employee (idEmployeeVacation, dateStartVacationEmployee, dateEndVacationEmployee, numDayVacationEmployee, userAddVacationEmployee, dateAddVacationEmployee) VALUES (?, ?, ?, ?, ?, ?)";
+				$res=$this->pdo->prepare($sql)->execute(array(
+					$data->__GET('idEmployeeVacation'),
+					$data->__GET('dateStartVacationEmployee'),
+					$data->__GET('dateEndVacationEmployee'),
+					$data->__GET('numDayVacationEmployee'),
+					$_SESSION["SidUser"],
+					date('Y-m-d H:i:s')
+					)
+				);
+				$idMenu = $this->pdo->lastInsertId();
+				return $idMenu;
+			} catch (Exception $e) 
+			{
+				die($e->getMessage());
+			}
+			return $res;
+		}
+		public function VacationInactive(Enti $data){
+			try {
+				$aNewData = array(
+					'statusVacationEmployee' => $data->__GET('statusVacationEmployee'),
+					'idVacationEmployee' => $data->__GET('idVacationEmployee')
+				);
+				$aNewValues = array_values($aNewData);
+				$this->backupUpdate($aNewData,'ta_7_vacation_employee','idVacationEmployee = '.$data->__GET('idVacationEmployee') , 'Vacaciones');
+				$sql = "UPDATE ta_7_vacation_employee SET
+							statusVacationEmployee = ?
+						WHERE idVacationEmployee = ?";
+				$res=$this->pdo->prepare($sql)->execute($aNewValues);
+			} catch (Exception $e) {
+				die($e->getMessage());
+			}
+			return $res;
+		}
     }
-	?>
+?>
